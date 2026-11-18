@@ -5,8 +5,9 @@ def Pengaturan_Penitipan_Paket():
     Go_Back_Pengaturan_Penitipan_Paket = False
     while not Go_Back_Pengaturan_Penitipan_Paket:
         os.system("cls")
-#       # if ada paket
-#           # tampilkan daftar paket
+        paket = True
+        if paket:
+            #tampilkan daftar paket
             opsi = [
                 inquirer.List("Opsi Pilih Pengaturan Penitipan Paket", message="Pilih Opsi", choices=["Pilih Paket", "Kembali"])
             ]

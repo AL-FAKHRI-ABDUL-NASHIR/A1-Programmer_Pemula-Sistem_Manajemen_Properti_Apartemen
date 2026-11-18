@@ -13,6 +13,7 @@ while not Go_Out:
     jawaban = inquirer.prompt(opsi)
     Hasil_Opsi = jawaban["Opsi Pilih Keluar"]
     if Hasil_Opsi == "Ya":
-        go_out = True
+        Go_Out = True
     elif Hasil_Opsi == "Tidak":
         pass
+    
