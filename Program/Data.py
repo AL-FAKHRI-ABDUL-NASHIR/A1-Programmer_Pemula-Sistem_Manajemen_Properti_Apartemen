@@ -27,7 +27,16 @@ Data_Akun = {
     }
 }
 
-Data_Paket = {}
+Data_Paket = {
+    1 : {
+        "Nama Paket"    : "Badak Jawa",
+        "Status Paket"  : "Belum_Sampai"
+    },
+    2 : {
+        "Nama Paket"    : "Badak Jawa",
+        "Status Paket"  : "Belum_Sampai"
+    }
+}
 
 Username_Admin = "Admin123"
 Password_Admin = "Code123"
