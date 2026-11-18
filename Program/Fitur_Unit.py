@@ -61,7 +61,7 @@ def Unit_Sewa():
         ]
         jawaban = inquirer.prompt(opsi)
         Hasil_Opsi = jawaban["Opsi Pilih Unit Sewa"]
-        if Hasil_Opsi == "Batalkan Sewa"
+        if Hasil_Opsi == "Batalkan Sewa":
             opsi = [
                 inquirer.List("Opsi Pilih Batalkan Sewa", message="Apakah Anda ingin membatalkan sewa unit ini?", choices=["Ya", "Tidak"])
             ]
