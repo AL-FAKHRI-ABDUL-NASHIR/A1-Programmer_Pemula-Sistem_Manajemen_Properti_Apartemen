@@ -10,8 +10,8 @@ def Tampilkan_data_paket(Nama_Penerima):
     try:
         for i in range (1, size+1):
             index_paket = str(Nama_Penerima + "_" + str(i))
-            print ("Paket #", i, "\nNama Paket       :", Data_Paket[index_paket]['Nama Paket'],
-                                "\nStatus Paket     :", Data_Paket[index_paket]['Status Paket'])
+            print ("PAKET #", i, "\nNama             :", Data_Paket[index_paket]['Nama Paket'],
+                                 "\nStatus Paket     :", Data_Paket[index_paket]['Status Paket'])
     except KeyError:
         print ("Tidak ada paket untuk anda")
         return False
@@ -21,11 +21,14 @@ def Pengaturan_Penitipan_Paket(Nama_Penerima):
     Go_Back_Pengaturan_Penitipan_Paket = False
     while not Go_Back_Pengaturan_Penitipan_Paket:
         os.system("cls")
-        Pilihan = ["Pilih Paket", "Kembali"]
-        if not Tampilkan_data_paket(Nama_Penerima):
-            Pilihan.pop(0)
+        Pilihan = ["Pilih Paket"]
+        if Tampilkan_data_paket(Nama_Penerima) == False:
+            Pilihan = ["Kembali"]
+        else:
+            Pilihan.append("Kembali")
+            input ("Tekan 'Enter' untuk lanjut")
         opsi = [
-                inquirer.List("Opsi Pilih Pengaturan Penitipan Paket", message="Pilih Opsi", choices=Pilihan)
+                inquirer.List("Opsi Pilih Pengaturan Penitipan Paket", message="Pilih Paket", choices=Pilihan)
             ]
         jawaban = inquirer.prompt(opsi)
         Hasil_Opsi = jawaban["Opsi Pilih Pengaturan Penitipan Paket"]
@@ -38,11 +41,16 @@ def Pengaturan_Penitipan_Paket(Nama_Penerima):
         ]
         jawaban = inquirer.prompt(opsi)
         Hasil_Opsi = jawaban["Opsi Pilih Paket Sampai"]
+
         if Hasil_Opsi == "Ya":
             print("Kondisi Paket")
+        else:
+            break
+
         opsi = [
             inquirer.List("Opsi Pilih Paket Diterima", message="Apakah paket sudah diterima?", choices=["Ya", "Tidak"])
             ]
+        
         jawaban = inquirer.prompt(opsi)
         Hasil_Opsi = jawaban["Opsi Pilih Paket Diterima"]
         if Hasil_Opsi == "Ya":
@@ -50,10 +58,8 @@ def Pengaturan_Penitipan_Paket(Nama_Penerima):
             print("Form telah dihapus")
             print('=' * 40)
             kembali = input('Tekan Enter Untuk Kembali')  
-            Go_Back_Pengaturan_Penitipan_Paket = True
+            break
         elif Hasil_Opsi == "Kembali":
-            Go_Back_Pengaturan_Penitipan_Paket = True
+            break
     # else tidak ada paket
     print('=' * 40)
-
-Pengaturan_Penitipan_Paket("RafaxCode")
