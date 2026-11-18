@@ -28,13 +28,13 @@ Data_Akun = {
 }
 
 Data_Paket = {
-    1 : {
+    "RafaxCode_1" : {
         "Nama Paket"    : "Badak Jawa",
-        "Status Paket"  : "Belum_Sampai"
+        "Status Paket"  : "Belum Sampai"
     },
-    2 : {
-        "Nama Paket"    : "Badak Jawa",
-        "Status Paket"  : "Belum_Sampai"
+    "RafaxCode_2" : {
+        "Nama Paket"    : "Asbak Bali",
+        "Status Paket"  : "Sudah Sampai"
     }
 }
 
