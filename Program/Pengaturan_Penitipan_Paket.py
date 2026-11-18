@@ -40,6 +40,6 @@ def Pengaturan_Penitipan_Paket():
         # else tidak ada paket
             print("Unit berhasil ditambahkan")
             print('=' * 40)
-            input('Tekan Enter Untuk Kembali') 
+            input('Tekan Enter Untuk Kembali') #rafa: Menghapus Variabel keluar
 
 Pengaturan_Penitipan_Paket()       
