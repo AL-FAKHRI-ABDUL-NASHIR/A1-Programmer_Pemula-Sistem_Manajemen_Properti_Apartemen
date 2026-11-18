@@ -38,8 +38,6 @@ def Pengaturan_Penitipan_Paket():
         elif Hasil_Opsi == "Kembali":
             Go_Back_Pengaturan_Penitipan_Paket = True
         # else tidak ada paket
-            print("Unit berhasil ditambahkan")
-            print('=' * 40)
             input('Tekan Enter Untuk Kembali') 
 
 Pengaturan_Penitipan_Paket()       
