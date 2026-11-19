@@ -1,34 +1,35 @@
+#Pesan untuk gw di masa depan, Ganti nama penerima soalnya yang ngakses admin bukan tenant
 import os
 import inquirer
 
 from Data import Data_Paket 
 
-def Tampilkan_data_paket(Nama_Penerima):
+def Tampilkan_data_paket():
     size = len(Data_Paket)
-    print ('=' * 40, "\n", ' ' * 20,
+    print ('=' * 55, "\n", ' ' * 20,
            "List Paket")
     try:
         for i in range (1, size+1):
-            index_paket = str(Nama_Penerima + "_" + str(i))
-            print ("PAKET #", i, "\nNama             :", Data_Paket[index_paket]['Nama Paket'],
-                                 "\nStatus Paket     :", Data_Paket[index_paket]['Status Paket'])
+            print ("PAKET #", i, "\nNama Penerima    :", Data_Paket[i]['Nama Penerima'],
+                                 "\nNama Paket       :", Data_Paket[i]['Nama Paket'],
+                                 "\nStatus Paket     :", Data_Paket[i]['Status Paket'])
     except KeyError:
-        print ("Tidak ada paket untuk anda")
+        print ("Tidak ada paket untuk saat ini")
         return False
     return True
 
-def Pengaturan_Penitipan_Paket(Nama_Penerima):
+def Pengaturan_Penitipan_Paket():
     Go_Back_Pengaturan_Penitipan_Paket = False
     while not Go_Back_Pengaturan_Penitipan_Paket:
         os.system("cls")
         Pilihan = ["Pilih Paket"]
-        if Tampilkan_data_paket(Nama_Penerima) == False:
+        if Tampilkan_data_paket() == False:
             Pilihan = ["Kembali"]
         else:
             Pilihan.append("Kembali")
             input ("Tekan 'Enter' untuk lanjut")
         opsi = [
-                inquirer.List("Opsi Pilih Pengaturan Penitipan Paket", message="Pilih Paket", choices=Pilihan)
+                inquirer.List("Opsi Pilih Pengaturan Penitipan Paket", message="Pilih Opsi", choices=Pilihan)
             ]
         jawaban = inquirer.prompt(opsi)
         Hasil_Opsi = jawaban["Opsi Pilih Pengaturan Penitipan Paket"]
@@ -63,3 +64,5 @@ def Pengaturan_Penitipan_Paket(Nama_Penerima):
             break
     # else tidak ada paket
     print('=' * 40)
+
+Pengaturan_Penitipan_Paket()
