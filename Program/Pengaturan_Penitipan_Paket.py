@@ -36,10 +36,20 @@ def Pengaturan_Penitipan_Paket():
             ]
         jawaban = inquirer.prompt(opsi)
         jawaban = jawaban["Opsi Pilih Pengaturan Penitipan Paket"]
+        pilihan_paket = ""
         if jawaban == "Kembali":
             os.system("cls")
             break
+        for i in range(len(Pilihan) - 1):
+            if Pilihan[i] == jawaban:
+                pilihan_paket = jawaban
+                print(pilihan_paket)
+                input()
+                break
+
         os.system("cls")
+
+        #Ubah Status Paket
         opsi = [
             inquirer.List("Opsi Pilih Paket Sampai", message="Apakah paket sudah sampai?", choices=["Ya", "Tidak"])
         ]
@@ -47,10 +57,13 @@ def Pengaturan_Penitipan_Paket():
         jawaban = jawaban["Opsi Pilih Paket Sampai"]
 
         if jawaban == "Ya":
-            print("Kondisi Paket")
+            print(Data_Paket[2]['Status Paket'])
+            input()
         else:
             break
         os.system("cls")
+
+        #Hapus Form Jika Paket sudah diterima
         opsi = [
             inquirer.List("Opsi Pilih Paket Diterima", message="Apakah paket sudah diterima?", choices=["Ya", "Tidak"])
             ]
