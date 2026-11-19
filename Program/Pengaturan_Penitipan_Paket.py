@@ -4,12 +4,18 @@ import inquirer
 
 from Data import Data_Paket 
 
+list_paket = []
+
 def Tampilkan_data_paket():
     size = len(Data_Paket)
-    print ('=' * 55, "\n", ' ' * 20,
-           "List Paket")
+    if size == 0:
+        print ("Paket tidak ada!")
+        return
     try:
+        print ('=' * 55, "\n", ' ' * 20,
+                "List Paket")
         for i in range (1, size+1):
+            list_paket.append(str("Paket #" + str(i) + " "))
             print ("PAKET #", i, "\nNama Penerima    :", Data_Paket[i]['Nama Penerima'],
                                  "\nNama Paket       :", Data_Paket[i]['Nama Paket'],
                                  "\nStatus Paket     :", Data_Paket[i]['Status Paket'])
@@ -22,7 +28,7 @@ def Pengaturan_Penitipan_Paket():
     Go_Back_Pengaturan_Penitipan_Paket = False
     while not Go_Back_Pengaturan_Penitipan_Paket:
         os.system("cls")
-        Pilihan = ["Pilih Paket"]
+        Pilihan = list_paket
         if Tampilkan_data_paket() == False:
             Pilihan = ["Kembali"]
         else:
