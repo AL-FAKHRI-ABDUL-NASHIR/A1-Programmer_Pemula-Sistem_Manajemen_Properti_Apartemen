@@ -1,5 +1,6 @@
 #Pesan untuk gw di masa depan, Ganti nama penerima soalnya yang ngakses admin bukan tenant
 import os
+import time
 import inquirer
 
 from Data import Data_Paket 
@@ -40,12 +41,8 @@ def Pengaturan_Penitipan_Paket():
         if jawaban == "Kembali":
             os.system("cls")
             break
-        for i in range(len(Pilihan) - 1):
-            if Pilihan[i] == jawaban:
-                pilihan_paket = jawaban
-                print(pilihan_paket)
-                input()
-                break
+        else:
+            pilihan_paket = jawaban
 
         os.system("cls")
 
@@ -56,11 +53,20 @@ def Pengaturan_Penitipan_Paket():
         jawaban = inquirer.prompt(opsi)
         jawaban = jawaban["Opsi Pilih Paket Sampai"]
 
+        kunci_data_paket = int(pilihan_paket[7:])
+        #Status Paket diubah ke ya atau tidak
         if jawaban == "Ya":
-            print(Data_Paket[2]['Status Paket'])
-            input()
-        else:
-            break
+            Data_Paket[kunci_data_paket]['Status Paket'] = "Sudah Sampai"
+            print("Mengubah Status Paket...")
+            time.sleep(1.5)
+            os.system("cls")
+        elif jawaban == "Tidak":
+            Data_Paket[kunci_data_paket]['Status Paket'] = "Belum Sampai"
+            print("Mengubah Status Paket...")
+            time.sleep(1.5)
+            os.system("cls")
+        print("Status Paket Sukses Diganti!")
+        input("Tekan 'Enter' Untuk Lanjut!")
         os.system("cls")
 
         #Hapus Form Jika Paket sudah diterima
@@ -71,6 +77,9 @@ def Pengaturan_Penitipan_Paket():
         jawaban = inquirer.prompt(opsi)
         jawaban = jawaban["Opsi Pilih Paket Diterima"]
         if jawaban == "Ya":
+            print("Menghapus Form...")
+            time.sleep(1.5)
+            os.system("cls")
             # di sini program menghapus form penitipan paket
             print("Form telah dihapus")
             print('=' * 40)
