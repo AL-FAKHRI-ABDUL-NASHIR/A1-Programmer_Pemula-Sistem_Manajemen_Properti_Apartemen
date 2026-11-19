@@ -13,10 +13,11 @@ def Tampilkan_data_paket():
     try:
         print ('=' * 55, "\n", ' ' * 20,
                 "List Paket")
-        for i in range (1, size+1):
-            print ("PAKET #", i, "\nNama Penerima    :", Data_Paket[i]['Nama Penerima'],
-                                 "\nNama Paket       :", Data_Paket[i]['Nama Paket'],
-                                 "\nStatus Paket     :", Data_Paket[i]['Status Paket'])
+        #i = kunci, paket = DataPaket[i](kunci diksi dalam diksi)
+        for i, paket in Data_Paket.items():
+            print ("PAKET #", i, "\nNama Penerima    :", paket['Nama Penerima'],
+                                 "\nNama Paket       :", paket['Nama Paket'],
+                                 "\nStatus Paket     :", paket['Status Paket'])
     except KeyError:
         print ("Terjadi Kesalahan! Silahkan Coba Lagi!")
         return False
@@ -60,34 +61,37 @@ def Pengaturan_Penitipan_Paket():
             print("Mengubah Status Paket...")
             time.sleep(1.5)
             os.system("cls")
+            print("Status Paket Sukses Diganti!")
+            input("Tekan 'Enter' Untuk Lanjut!")
         elif jawaban == "Tidak":
             Data_Paket[kunci_data_paket]['Status Paket'] = "Belum Sampai"
             print("Mengubah Status Paket...")
             time.sleep(1.5)
             os.system("cls")
-        print("Status Paket Sukses Diganti!")
-        input("Tekan 'Enter' Untuk Lanjut!")
+            print("Status Paket Sukses Diganti!")
+            input("Tekan 'Enter' Untuk Kembali!")
         os.system("cls")
 
         #Hapus Form Jika Paket sudah diterima
         opsi = [
             inquirer.List("Opsi Pilih Paket Diterima", message="Apakah paket sudah diterima?", choices=["Ya", "Tidak"])
             ]
-        
-        jawaban = inquirer.prompt(opsi)
-        jawaban = jawaban["Opsi Pilih Paket Diterima"]
+
         if jawaban == "Ya":
-            print("Menghapus Form...")
-            time.sleep(1.5)
-            os.system("cls")
-            # di sini program menghapus form penitipan paket
-            print("Form telah dihapus")
-            print('=' * 40)
-            input('Tekan Enter Untuk Kembali')
-        elif jawaban == "Tidak":
-            print("Silahkan Menunggu Kedatangan Paket Anda!")
-            print('=' * 40)
-            input('Tekan Enter Untuk Kembali')
+            jawaban = inquirer.prompt(opsi)
+            jawaban = jawaban["Opsi Pilih Paket Diterima"]
+            if jawaban == "Ya":
+                print("Menghapus Form...")
+                time.sleep(1.5)
+                os.system("cls")
+                # di sini program menghapus form penitipan paket
+                print("Form telah dihapus")
+                print('=' * 40)
+                input('Tekan Enter Untuk Kembali')
+            elif jawaban == "Tidak":
+                print("Silahkan Menunggu Kedatangan Paket Anda!")
+                print('=' * 40)
+                input('Tekan Enter Untuk Kembali')
     # else tidak ada paket
     print('=' * 40)
     os.system("cls")
