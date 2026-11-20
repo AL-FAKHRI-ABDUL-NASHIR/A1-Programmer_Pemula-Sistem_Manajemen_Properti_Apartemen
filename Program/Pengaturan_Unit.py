@@ -1,6 +1,8 @@
 import os
 import inquirer
 import time
+
+from Data import Data_Unit as Daftar_Unit
 from prettytable import PrettyTable
 
 def Pengaturan_Unit():
