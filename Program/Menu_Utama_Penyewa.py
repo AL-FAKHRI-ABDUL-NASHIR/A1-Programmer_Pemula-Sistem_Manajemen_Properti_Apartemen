@@ -6,7 +6,7 @@ import Fitur_Penitipan_Paket
 import Fitur_Pembayaran_Sewa
 import Fitur_Kelola_Akun
 
-def Menu_Utama_Penyewa():
+def Menu_Utama_Penyewa(Username_Log_In):
     Go_Back_Menu_Utama_Penyewa = False
     while not Go_Back_Menu_Utama_Penyewa:
         os.system("cls")
@@ -22,6 +22,6 @@ def Menu_Utama_Penyewa():
         elif Hasil_Opsi == "Pembayaran Sewa":
             Fitur_Pembayaran_Sewa.Fitur_Pembayaran_Sewa()
         elif Hasil_Opsi == "Kelola Akun":
-            Fitur_Kelola_Akun.Fitur_Kelola_Akun()
+            Fitur_Kelola_Akun.Fitur_Kelola_Akun(Username_Log_In)
         elif Hasil_Opsi == "Log Out":
             Go_Back_Menu_Utama_Penyewa = True

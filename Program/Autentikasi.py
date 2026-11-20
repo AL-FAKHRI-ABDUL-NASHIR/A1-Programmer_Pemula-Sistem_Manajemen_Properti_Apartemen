@@ -1,9 +1,11 @@
 import os
 import inquirer
+import time
+import maskpass
 
+import Data
 import Menu_Utama_Admin
 import Menu_Utama_Penyewa
-
 
 def Menu_Autentikasi():
     Go_Back_Autentikasi = False
@@ -22,40 +24,76 @@ def Menu_Autentikasi():
             Go_Back_Autentikasi = True
 
 def Menu_Log_In():
+    print("=" * 40)
+    print("LOG IN AKUN".center(40))
+    print("=" * 40)
+    Username_Log_In = input("Masukkan Username : ").strip()    
+    print("Masukkan Password : ", end="")
+    Password_Log_In = maskpass.advpass(prompt="", mask="*")
     os.system("cls")
-    # Periksa Data_Akun
-    # if Username_Log_In == Username and Password_Log_In == Password:
-        opsi = [
-            inquirer.List("Opsi Pilih Menu Log In", message="Apakah Anda ingin masuk?", choices=["Ya", "Tidak"])
-        ]
-        jawaban = inquirer.prompt(opsi)
-        Hasil_Opsi = jawaban["Opsi Pilih Menu Log In"]
-        if Hasil_Opsi == "Ya":
-            # if Username_Log_In == Username_Admin:
+    opsi = [
+        inquirer.List("Opsi Pilih Menu Log In", message="Apakah Anda ingin masuk?", choices=["Ya", "Tidak"])
+    ]
+    jawaban = inquirer.prompt(opsi)
+    Hasil_Opsi = jawaban["Opsi Pilih Menu Log In"]
+    if Hasil_Opsi == "Ya":
+        for i in Data.Data_Akun:
+            if Username_Log_In == Data.Username_Admin and Password_Log_In == Data.Password_Admin:
+                print("Login berhasil!")
+                print('=' * 40)
+                Lanjut = input("Tekan Enter Untuk Lanjut")
                 Menu_Utama_Admin.Menu_Utama_Admin()
-            # else:
+                break
+            elif Username_Log_In == Data.Data_Akun[i]["Username"] and Username_Log_In == Data.Data_Akun[i]["Password"]:
+                print("Login berhasil!")
+                print('=' * 40)
+                Lanjut = input("Tekan Enter Untuk Lanjut")
                 Menu_Utama_Penyewa.Menu_Utama_Penyewa()
-        elif Hasil_Opsi == "Tidak":
-            pass
-    # else:
-        # "Login gagal"
+                break
+            else:
+                os.system("cls")
+                print("=====Login Gagal=====")
+                time.sleep(1)
+                break
+    elif Hasil_Opsi == "Tidak":
+        pass
 
 def Menu_Sign_In():
     os.system("cls")
-    # Periksa Data_Akun
-    # if Username_Log_In in Data_Akun and Username_Log_In == Username_Admin:
-        # "Username sudah digunakan"
-    # elif username admin yang diinput kosong
-        print("Username tidak boleh kosong")
-        print('=' * 40)
-        kembali = input("Tekan Enter Untuk Kembali")
-    # else:
-        opsi = [
-            inquirer.List("Opsi Pilih Menu Sign In", message="Simpan Akun?", choices=["Ya", "Tidak"])
-        ]
-        jawaban = inquirer.prompt(opsi)
-        Hasil_Opsi = jawaban["Opsi Pilih Menu Sign In"]
-        if Hasil_Opsi == "Ya":
-            # Simpan ke Data_Akun
-        elif Hasil_Opsi == "Tidak":
-            pass
+    print("=" * 40)
+    print("SIGN IN AKUN".center(40))
+    print("=" * 40)
+    Username_Sign_In = input("Masukkan Username : ").strip()    
+    Password_Sign_In = input("Masukkan Password : ").strip()
+    Nama_Lengkap = input("Masukkan Nama Lengkap : ").strip() 
+    No_Hp = input("Masukkann Nomor Hp : ").strip()
+    opsi = [
+        inquirer.List("Opsi Pilih Menu Sign In", message="Simpan Akun?", choices=["Ya", "Tidak"])
+    ]
+    jawaban = inquirer.prompt(opsi)
+    Hasil_Opsi = jawaban["Opsi Pilih Menu Sign In"]
+    if Hasil_Opsi == "Ya":
+        for i in Data.Data_Akun:
+            if Username_Sign_In == Data.Data_Akun[i]["Username"] or Username_Sign_In == Data.Username_Admin:
+                os.system("cls")
+                print("=====Username sudah digunakan=====")
+                time.sleep(1)
+                break
+            elif not Username_Sign_In or not Password_Sign_In or not Nama_Lengkap or not No_Hp:
+                os.system("cls")
+                print("=====Input tidak boleh kosong=====")
+                time.sleep(1)
+                break
+            else:
+                ID_Baru = next(reversed(Data.Data_Akun.keys)) + 1
+                Data.Data_Akun[ID_Baru] = {
+                    "Username" : Username_Sign_In,
+                    "Password" : Password_Sign_In,
+                    "Nama Lengkap" : Nama_Lengkap,
+                    "No. Hp" : No_Hp,
+                    "Unit Sewa" : "-",
+                    "Status Bayar Sewa" : "-"
+                }
+                break
+    elif Hasil_Opsi == "Tidak":
+        pass
