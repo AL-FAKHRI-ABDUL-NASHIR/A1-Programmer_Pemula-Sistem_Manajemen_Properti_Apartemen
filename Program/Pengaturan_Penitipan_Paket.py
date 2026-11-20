@@ -41,5 +41,3 @@ def Pengaturan_Penitipan_Paket():
             print("Unit berhasil ditambahkan")
             print('=' * 40)
             input('Tekan Enter Untuk Kembali') 
-
-Pengaturan_Penitipan_Paket()       

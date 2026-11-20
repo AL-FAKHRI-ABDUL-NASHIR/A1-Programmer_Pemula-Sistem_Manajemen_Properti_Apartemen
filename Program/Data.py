@@ -8,6 +8,8 @@ Data_Unit = {
     }
 }
 
+Daftar_Unit = {}
+
 Data_Akun = {
     260001 : {
         "Username" : "RafaxCode",
