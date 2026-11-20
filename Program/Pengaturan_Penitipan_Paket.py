@@ -91,15 +91,17 @@ def Pengaturan_Penitipan_Paket():
                 time.sleep(1.5)
                 os.system("cls")
                 # di sini program menghapus form penitipan paket
-                del Data_Paket[kunci_data_paket]
-                susun_ulang_data_paket()
-                print("Form telah dihapus")
-                print('=' * 40)
-                input('Tekan Enter Untuk Kembali')
-            elif jawaban == "Tidak":
-                print("Silahkan Menunggu Kedatangan Paket Anda!")
-                print('=' * 40)
-                input('Tekan Enter Untuk Kembali')
-    # else tidak ada paket
-    print('=' * 40)
-    os.system("cls")
+                    print("Form telah dihapus")
+                    print('=' * 40)
+                    kembali = input('Tekan Enter Untuk Kembali')  
+                    Go_Back_Pengaturan_Penitipan_Paket = True
+                elif Hasil_Opsi == "Tidak":
+                    Go_Back_Pengaturan_Penitipan_Paket = True
+            elif Hasil_Opsi == "Tidak":
+                Go_Back_Pengaturan_Penitipan_Paket = True
+        elif Hasil_Opsi == "Kembali":
+            Go_Back_Pengaturan_Penitipan_Paket = True
+        # else tidak ada paket
+            print("Unit berhasil ditambahkan")
+            print('=' * 40)
+            input('Tekan Enter Untuk Kembali') 

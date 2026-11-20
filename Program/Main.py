@@ -16,4 +16,3 @@ while not Go_Out:
         Go_Out = True
     elif Hasil_Opsi == "Tidak":
         pass
-    
