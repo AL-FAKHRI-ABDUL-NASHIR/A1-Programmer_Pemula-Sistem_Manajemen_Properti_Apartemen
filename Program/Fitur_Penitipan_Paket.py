@@ -1,6 +1,22 @@
 import os
 import inquirer
 
+from Data import Data_Paket
+
+def Tampilkan_data_paket(Nama_Penerima):
+    size = len(Data_Paket)
+    print ('=' * 40, "\n", ' ' * 20,
+           "List Paket")
+    try:
+        for i in range (1, size+1):
+            index_paket = str(Nama_Penerima + "_" + str(i))
+            print ("PAKET #", i, "\nNama             :", Data_Paket[index_paket]['Nama Paket'],
+                                 "\nStatus Paket     :", Data_Paket[index_paket]['Status Paket'])
+    except KeyError:
+        print ("Tidak ada paket untuk anda")
+        return False
+    return True
+
 def Fitur_Penitipan_Paket():
     Go_Back_Fitur_Penitipan_Paket = False
     while not Go_Back_Fitur_Penitipan_Paket:
