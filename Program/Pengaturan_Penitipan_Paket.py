@@ -5,6 +5,9 @@ import inquirer
 
 from Data import Data_Paket 
 
+def susun_ulang_data_paket():
+    Data_Paket = [Data_Paket[k] for k in sorted(Data_Paket)]
+
 def Tampilkan_data_paket():
     size = len(Data_Paket)
     if size == 0:
@@ -85,6 +88,8 @@ def Pengaturan_Penitipan_Paket():
                 time.sleep(1.5)
                 os.system("cls")
                 # di sini program menghapus form penitipan paket
+                del Data_Paket[kunci_data_paket]
+                susun_ulang_data_paket()
                 print("Form telah dihapus")
                 print('=' * 40)
                 input('Tekan Enter Untuk Kembali')
@@ -95,3 +100,4 @@ def Pengaturan_Penitipan_Paket():
     # else tidak ada paket
     print('=' * 40)
     os.system("cls")
+
