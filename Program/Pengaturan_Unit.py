@@ -4,6 +4,9 @@ import time
 import Data
 from prettytable import PrettyTable
 
+from Data import Data_Unit as Daftar_Unit
+from prettytable import PrettyTable
+
 def Pengaturan_Unit():
     Go_Back_Pengaturan_Unit = False
     while not Go_Back_Pengaturan_Unit:
