@@ -6,7 +6,10 @@ import inquirer
 from Data import Data_Paket 
 
 def susun_ulang_data_paket():
-    Data_Paket = [Data_Paket[k] for k in sorted(Data_Paket)]
+    list_paket = [Data_Paket[k] for k in sorted(Data_Paket)]
+    Data_Paket.clear()
+    for nomor, paket in enumerate(list_paket, start=1):
+        Data_Paket[nomor] = paket
 
 def Tampilkan_data_paket():
     size = len(Data_Paket)
@@ -100,4 +103,3 @@ def Pengaturan_Penitipan_Paket():
     # else tidak ada paket
     print('=' * 40)
     os.system("cls")
-
