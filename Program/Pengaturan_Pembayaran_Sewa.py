@@ -1,37 +1,86 @@
 import os
+import time
 import inquirer
+from prettytable import PrettyTable
+import Data
 
 def Pengaturan_Pembayaran_Sewa():
-    Go_Back_Pengaturan_Pembayaran_Sewa = False
-    while not Go_Back_Pengaturan_Pembayaran_Sewa:
+    while True:
+        os.system("cls")
+        print("=========================================================================================")
+        print("                                PENGATURAN PEMBAYARAN SEWA                               ")
+        print("=========================================================================================")
+
+        tabelUnit = PrettyTable()
+        tabelUnit.field_names = ["Nomor Unit", "Nama Penghuni", "Nomor Kontak", "Harga Unit", "Status Pembayaran"]
+        for Nomor_Unit, dataUnit in Data.Daftar_Unit.items():
+            if dataUnit['Status Unit'] == "Terisi":
+                Status_Bayar = Data.Daftar_Pembayaran.get(Nomor_Unit, "Belum")
+                tabelUnit.add_row([Nomor_Unit,
+                                   dataUnit['Nama Penghuni'],
+                                   dataUnit['Nomor Kontak'],
+                                   dataUnit['Harga Unit'],
+                                   Status_Bayar
+                                   ])
+        print(tabelUnit)
+        print("Masukkan 0 Untuk Kembali")
+
+        try:
+            Nomor_Unit = int(input("Masukkan Nomor Unit Penyewa: "))
+        except ValueError:
             os.system("cls")
-#       # di sini tampilkan daftar penyewa dengan status bayar sewanya
-#       # di sini program memilih nama penyewa
-#       # di sini tampilkan informasi penyewa yang telah dipilih dari Data_Penyewa
-#       # if penyewa yang ditampilkan sudah bayar:
-            print("Pembayaran sewa telah lunas")
+            print("Harap Masukkan Nomor Yang Valid")
+            time.sleep(1)
+            continue
+        if Nomor_Unit == 0:
+            break
+        elif Nomor_Unit not in Data.Daftar_Unit:
+            os.system("cls")
+            print("Nomor Unit Tidak Ada Di Dalam Daftar")
+            time.sleep(1)
+            continue
+        elif Data.Daftar_Unit[Nomor_Unit]['Status Unit'] != "Terisi":
+            os.system("cls")
+            print("Unit Tersebut Tidak Memiliki Penyewa")
+            time.sleep(1)
+            continue
+        else:
+            dataUnit = Data.Daftar_Unit[Nomor_Unit]
+            Status_Bayar = Data.Daftar_Pembayaran.get(Nomor_Unit, "Belum")
+            os.system("cls")
+            print("Nomor Unit        :", Nomor_Unit)
+            print("Tipe Unit         :", dataUnit['Tipe Unit'])
+            print("Harga Unit        :", dataUnit['Harga Unit'])
+            print("Nama Penghuni     :", dataUnit['Nama Penghuni'])
+            print("Nomor Kontak      :", dataUnit['Nomor Kontak'])
+            print("Status Pembayaran :", Status_Bayar)
             print('=' * 40)
-            kembali = input('Tekan Enter Untuk Kembali')  
-#       # else:
-            opsi = [
-                inquirer.List("Opsi Pilih Pesan Pengingat", message="Pilih Opsi", choices=["Kirim Pesan Pengingat", "Kembali"])
-            ]
-            jawaban = inquirer.prompt(opsi)
-            Hasil_Opsi = jawaban["Opsi Pilih Pesan Pengingat"]
-            if Hasil_Opsi == "Kirim Pesan Pengingat":
-#               # di sini program input pesan
+
+            if Status_Bayar == "Sudah":
+                print("Pembayaran sewa telah lunas")
+                print('=' * 40)
+                kembali = input('Tekan Enter Untuk Kembali')
+                break
+            else:
                 opsi = [
-                    inquirer.List("Opsi Pilih Konfirmasi", message="Kirim pesan pengingat ke penyewa?", choices=["Ya", "Tidak"])
+                    inquirer.List("Opsi Pilih Pesan Pengingat", message="Pilih Opsi", choices=["Kirim Pesan Pengingat", "Kembali"])
                 ]
                 jawaban = inquirer.prompt(opsi)
-                Hasil_Opsi = jawaban["Opsi Pilih Kirim Pengingat"]
-                if Hasil_Opsi == "Ya":
-#                   # di sini program mengirim pesan ke penyewa
-                    print("Pesan berhasil terkirim")
-                    print('=' * 40)
-                    kembali = input('Tekan Enter Untuk Kembali')
-                    Go_Back_Pengaturan_Pembayaran_Sewa = True
-                elif Hasil_Opsi == "Tidak":
-                     Go_Back_Pengaturan_Pembayaran_Sewa = True
-            elif Hasil_Opsi == "Kembali":
-                 Go_Back_Pengaturan_Pembayaran_Sewa = True
+                Hasil_Opsi = jawaban["Opsi Pilih Pesan Pengingat"]
+                if Hasil_Opsi == "Kirim Pesan Pengingat":
+                    Pesan = input("Masukkan Pesan Pengingat: ")
+                    opsi = [
+                        inquirer.List("Opsi Pilih Konfirmasi", message="Kirim pesan pengingat ke penyewa?", choices=["Ya", "Tidak"])
+                    ]
+                    jawaban = inquirer.prompt(opsi)
+                    Hasil_Opsi = jawaban["Opsi Pilih Konfirmasi"]
+                    if Hasil_Opsi == "Ya":
+                        # di sini program mengirim pesan ke penyewa
+                        print("Pesan berhasil terkirim")
+                        print('=' * 40)
+                        kembali = input('Tekan Enter Untuk Kembali')
+                        break
+                    else:
+                        break
+                else:
+                    break

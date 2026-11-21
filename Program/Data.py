@@ -9,6 +9,7 @@ Data_Unit = {
 }
 
 Daftar_Unit = {}
+Daftar_Pembayaran = {}
 
 Data_Akun = {
     260001 : {
