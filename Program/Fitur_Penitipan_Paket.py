@@ -92,22 +92,25 @@ def Status_Paket(Nama_User):
         print("ValueError") 
 
 def proses_penghapusan_paket(Nama_User):
-    opsi = [
-        
-    ]
-    jawaban = inquirer.prompt(opsi)
-    jawaban = jawaban["Opsi Pilih Paket Diterima"]
-    print("Menghapus Form...")
-    time.sleep(1.5)
-    os.system("cls")
-    # di sini program menghapus form penitipan paket
-    del Data_Paket[kunci_data_paket]
-    susun_ulang_data_paket()
-    print("Form telah dihapus")
-    print('=' * 40)
-    input('Tekan Enter Untuk Kembali')
-    print('=' * 40)
-    os.system("cls")
+    try:
+        opsi = [
+            
+        ]
+        jawaban = inquirer.prompt(opsi)
+        jawaban = jawaban["Opsi Pilih Paket Diterima"]
+        print("Menghapus Form...")
+        time.sleep(1.5)
+        os.system("cls")
+        # di sini program menghapus form penitipan paket
+        del Data_Paket[kunci_data_paket]
+        susun_ulang_data_paket()
+        print("Form telah dihapus")
+        print('=' * 40)
+        input('Tekan Enter Untuk Kembali')
+        print('=' * 40)
+        os.system("cls")
+    except KeyError:
+        print ("Somethin wenr wrong")
 
 
 def Hapus_Form(Nama_User):
@@ -132,5 +135,3 @@ def Hapus_Form(Nama_User):
         input('Tekan Enter Untuk Kembali')  
         break
     
-
-Fitur_Penitipan_Paket("om")
