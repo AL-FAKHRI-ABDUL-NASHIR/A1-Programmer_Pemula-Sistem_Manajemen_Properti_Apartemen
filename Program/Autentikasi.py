@@ -7,6 +7,15 @@ import Data
 import Menu_Utama_Admin
 import Menu_Utama_Penyewa
 
+def Setup_Log_In_Admin():
+    if Username_Log_In == Data.Username_Admin and Password_Log_In == Data.Password_Admin:
+        return True
+
+def Setup_Log_In_Penyewa():
+    for i in Data.Data_Akun:
+        if Username_Log_In == Data.Data_Akun[i]["Username"] and Password_Log_In == Data.Data_Akun[i]["Password"]:
+            return True
+
 def Menu_Autentikasi():
     Go_Back_Autentikasi = False
     while not Go_Back_Autentikasi:
@@ -24,6 +33,7 @@ def Menu_Autentikasi():
             Go_Back_Autentikasi = True
 
 def Menu_Log_In():
+    global Username_Log_In, Password_Log_In
     print("=" * 40)
     print("LOG IN AKUN".center(40))
     print("=" * 40)
@@ -37,24 +47,20 @@ def Menu_Log_In():
     jawaban = inquirer.prompt(opsi)
     Hasil_Opsi = jawaban["Opsi Pilih Menu Log In"]
     if Hasil_Opsi == "Ya":
-        for i in Data.Data_Akun:
-            if Username_Log_In == Data.Username_Admin and Password_Log_In == Data.Password_Admin:
-                print("Login berhasil!")
-                print('=' * 40)
-                Lanjut = input("Tekan Enter Untuk Lanjut")
-                Menu_Utama_Admin.Menu_Utama_Admin()
-                break
-            elif Username_Log_In == Data.Data_Akun[i]["Username"] and Username_Log_In == Data.Data_Akun[i]["Password"]:
-                print("Login berhasil!")
-                print('=' * 40)
-                Lanjut = input("Tekan Enter Untuk Lanjut")
-                Menu_Utama_Penyewa.Menu_Utama_Penyewa()
-                break
-            else:
-                os.system("cls")
-                print("=====Login Gagal=====")
-                time.sleep(1)
-                break
+        if Setup_Log_In_Admin():
+            print("Login berhasil!")
+            print('=' * 40)
+            Lanjut = input("Tekan Enter Untuk Lanjut")
+            Menu_Utama_Admin.Menu_Utama_Admin()
+        elif Setup_Log_In_Penyewa():
+            print("Login berhasil!")
+            print('=' * 40)
+            Lanjut = input("Tekan Enter Untuk Lanjut")
+            Menu_Utama_Penyewa.Menu_Utama_Penyewa(Username_Log_In)
+        else:
+            os.system("cls")
+            print("=====Login Gagal=====")
+            time.sleep(1)
     elif Hasil_Opsi == "Tidak":
         pass
 
@@ -85,7 +91,7 @@ def Menu_Sign_In():
                 time.sleep(1)
                 break
             else:
-                ID_Baru = next(reversed(Data.Data_Akun.keys)) + 1
+                ID_Baru = next(reversed(Data.Data_Akun)) + 1
                 Data.Data_Akun[ID_Baru] = {
                     "Username" : Username_Sign_In,
                     "Password" : Password_Sign_In,
@@ -94,6 +100,8 @@ def Menu_Sign_In():
                     "Unit Sewa" : "-",
                     "Status Bayar Sewa" : "-"
                 }
+                print(Data.Data_Akun)
+                input()
                 break
     elif Hasil_Opsi == "Tidak":
         pass
