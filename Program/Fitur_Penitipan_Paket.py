@@ -5,21 +5,54 @@ from Data import Data_Paket
 
 def Tampilkan_data_paket(Nama_Penerima):
     size = len(Data_Paket)
-    print ('=' * 40, "\n", ' ' * 20,
-           "List Paket")
+    if size == 0:
+        print ("Paket tidak ada!")
+        return
     try:
-        for i in range (1, size+1):
-            index_paket = str(Nama_Penerima + "_" + str(i))
-            print ("PAKET #", i, "\nNama             :", Data_Paket[index_paket]['Nama Paket'],
-                                 "\nStatus Paket     :", Data_Paket[index_paket]['Status Paket'])
+        paket_personal_ada = False
+        print ('=' * 55, "\n", ' ' * 20,
+                "List Paket")
+        #i = kunci, paket = DataPaket[i](kunci diksi dalam diksi)
+        personal_paket_count = 0
+        for i, paket in Data_Paket.items():
+            if Nama_Penerima == paket['Nama Penerima']:
+                paket_personal_ada = True
+                personal_paket_count += 1
+                print ("PAKET #", personal_paket_count, 
+                        "\nNama Penerima    :", paket['Nama Penerima'],
+                        "\nNama Paket       :", paket['Nama Paket'],
+                        "\nStatus Paket     :", paket['Status Paket'])
+        if not paket_personal_ada:
+            print("       Saat ini, anda tidak sedang menitipkan paket!")
+        
     except KeyError:
-        print ("Tidak ada paket untuk anda")
-        return False
-    return True
+        print ("Terjadi Kesalahan! Silahkan Coba Lagi!")
 
-def Fitur_Penitipan_Paket():
-    Go_Back_Fitur_Penitipan_Paket = False
-    while not Go_Back_Fitur_Penitipan_Paket:
+def proses_pembuatan_form(Nama_Penerima):
+    while True:
+        try:
+            nama_paket = input("Masukkan Nama Paket: ")
+            temporary_paket = {"Nama Penerima" : Nama_Penerima,
+                            "Nama Paket"    : nama_paket,
+                            "Status Paket"  : "Belum Sampai"}
+            if nama_paket == "":
+                print ("Nama Paket Tidak Boleh Kosong!")
+            elif nama_paket == "n":
+                print("Aksi Dibatalkan")
+                input('Tekan Enter Untuk Kembali') 
+                break
+            #Kondisi jika user mo kluar tambahin OM
+            else:
+                print("Form telah dibuat")
+                print('=' * 40)
+                input('Tekan Enter Untuk Kembali') 
+                break
+        except KeyError:
+            print("Something Went Wrong")
+    Data_Paket[len(Data_Paket)] = temporary_paket
+
+def Fitur_Penitipan_Paket(Nama_User):
+    while True:
         os.system("cls")
 #       # di sini tampilkan judul
 #       # di sini program menampilkan daftar form dari semua form paket yang telah dibuat
@@ -29,15 +62,15 @@ def Fitur_Penitipan_Paket():
         jawaban = inquirer.prompt(opsi)
         Hasil_Opsi = jawaban["Opsi Pilih Fitur Penitipan Paket"]
         if Hasil_Opsi == "Buat Form":
-            Buat_Form()
+            Buat_Form(Nama_User)
         elif Hasil_Opsi == "Status Paket":
-            Status_Paket()
+            Status_Paket(Nama_User)
         elif Hasil_Opsi == "Hapus Form":
-            Hapus_Form()
+            Hapus_Form(Nama_User)
         elif Hasil_Opsi == "Kembali":
-            Go_Back_Fitur_Penitipan_Paket
+            break
 
-def Buat_Form():
+def Buat_Form(Nama_User):
     # di sini program input form
     opsi = [
         inquirer.List("Opsi Pilih Konfirmasi", message="Apakah Anda ingin membuat form ini?", choices=["Ya", "Tidak"])
@@ -46,43 +79,58 @@ def Buat_Form():
     Hasil_Opsi = jawaban["Opsi Pilih Konfirmasi"]
     if Hasil_Opsi == "Ya":
 #       # di sini program simpan form ke Data_Paket
-        print("Form telah dibuat")
-        print('=' * 40)
-        kembali = input('Tekan Enter Untuk Kembali')  
+        proses_pembuatan_form(Nama_User) 
     elif Hasil_Opsi == "Tidak":
         pass
 
-def Status_Paket():
-    # if ada form:
-        # di sini program menampilkan form paket beserta statusnya
+def Status_Paket(Nama_User):
+    try:
+        Tampilkan_data_paket(Nama_User)
         print('=' * 40)
-        kembali = input('Tekan Enter Untuk Kembali')
-    # else (tidak ada form)
-        print("Belum ada form yang dibuat")
-        print('=' * 40)
-        kembali = input('Tekan Enter Untuk Kembali')  
+        input('Tekan Enter Untuk Kembali')
+    except ValueError:
+        print("ValueError") 
 
-def Hapus_Form():
-    # if ada form:
-        # di sini program penyewa memilih salah satu paket
+def proses_penghapusan_paket(Nama_User):
+    opsi = [
+        
+    ]
+    jawaban = inquirer.prompt(opsi)
+    jawaban = jawaban["Opsi Pilih Paket Diterima"]
+    print("Menghapus Form...")
+    time.sleep(1.5)
+    os.system("cls")
+    # di sini program menghapus form penitipan paket
+    del Data_Paket[kunci_data_paket]
+    susun_ulang_data_paket()
+    print("Form telah dihapus")
+    print('=' * 40)
+    input('Tekan Enter Untuk Kembali')
+    print('=' * 40)
+    os.system("cls")
+
+
+def Hapus_Form(Nama_User):
+    while True:
+        form = True
+        if form == False:        
+                print("Belum ada form yang dibuat")
+                print('=' * 40)
+                input('Tekan Enter Untuk Kembali')
+                break
         opsi = [
             inquirer.List("Opsi Pilih Konfirmasi", message="Apakah Anda ingin menghapus form ini?", choices=["Ya", "Tidak"])
         ]
         jawaban = inquirer.prompt(opsi)
         Hasil_Opsi = jawaban["Opsi Pilih Konfirmasi"]
         if Hasil_Opsi == "Ya":
-    #       # simpan form ke Data_Paket
-            print("Form berhasil dibuat")
-            print('=' * 40)
-            kembali = input('Tekan Enter Untuk Kembali')
-        elif Hasil_Opsi == "Ya":
-    #       # di sini program simpan form ke Data_Paket
-            print("Form telah dibuat")
-            print('=' * 40)
-            kembali = input('Tekan Enter Untuk Kembali')  
+            proses_penghapusan_paket(Nama_User)
+            print("Form berhasil Dihapus")
         elif Hasil_Opsi == "Tidak":
-            pass
-    # else (tidak ada form)        
-        print("Belum ada form yang dibuat")
+            print("Aksi Dibatalkan.")
         print('=' * 40)
-        kembali = input('Tekan Enter Untuk Kembali')
+        input('Tekan Enter Untuk Kembali')  
+        break
+    
+
+Fitur_Penitipan_Paket("om")
