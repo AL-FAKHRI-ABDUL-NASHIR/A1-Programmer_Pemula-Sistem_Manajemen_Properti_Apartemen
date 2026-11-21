@@ -30,7 +30,18 @@ Data_Akun = {
     }
 }
 
-Data_Paket = {}
+Data_Paket = {
+    1 : {
+        "Nama Penerima" : "RafaxCode",
+        "Nama Paket"    : "Badak Jawa",
+        "Status Paket"  : "Belum Sampai"
+    },
+    2 : {
+        "Nama Penerima" : "RafaxCode",
+        "Nama Paket"    : "Asbak Bali",
+        "Status Paket"  : "Sudah Sampai"
+    }
+}
 
 Username_Admin = "Admin123"
 Password_Admin = "Code123"

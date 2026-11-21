@@ -47,6 +47,7 @@ def Fitur_Kelola_Akun(Username_Log_In):
                     else:
                         if Username_Log_In == Data.Data_Akun[i]["Username"]:
                             Data.Data_Akun[i]["Username"] = Username_Baru
+                            Username_Log_In = Username_Baru
                             print("Username berhasil diganti!")
                             print('=' * 40)
                             Kembali = input("Tekan Enter Untuk Kembali")
