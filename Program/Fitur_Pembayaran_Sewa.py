@@ -1,12 +1,13 @@
 import os
 import inquirer
 
-#OTW TO BE FIXED
+from Data import Daftar_Unit
 
-def Fitur_Pembayaran_Sewa(Nama_Lengkap, Daftar_Kamar, Data_Admin):
+
+def Fitur_Pembayaran_Sewa(Nama_Lengkap, Data_Admin):
     Unit = None
-    for Nomor_Kamar, Data_Kamar in Daftar_Kamar.items():
-        if Data_Kamar["Nama Penghuni"] == Nama_Lengkap:
+    for Nomor_Kamar, Data_Kamar in Daftar_Unit.items():
+        if Data_Kamar[Nomor_Kamar]["Nama Penghuni"] == Nama_Lengkap:
             Unit = Data_Kamar
             break
 
