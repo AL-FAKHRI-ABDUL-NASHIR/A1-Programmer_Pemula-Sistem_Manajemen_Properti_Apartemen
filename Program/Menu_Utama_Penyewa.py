@@ -18,7 +18,7 @@ def Menu_Utama_Penyewa(Username_Log_In):
         if Hasil_Opsi == "Daftar Unit":
             Fitur_Unit.Fitur_Unit()
         elif Hasil_Opsi == "Penitipan Paket":
-            Fitur_Penitipan_Paket.Fitur_Penitipan_Paket()
+            Fitur_Penitipan_Paket.Fitur_Penitipan_Paket(Username_Log_In)
         elif Hasil_Opsi == "Pembayaran Sewa":
             Fitur_Pembayaran_Sewa.Fitur_Pembayaran_Sewa()
         elif Hasil_Opsi == "Kelola Akun":
