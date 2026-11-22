@@ -9,7 +9,7 @@ def Pengaturan_Unit():
     while not Go_Back_Pengaturan_Unit:
         os.system("cls")
         opsi = [
-            inquirer.List("Opsi Pilih Pengaturan Unit", message="Pilih Opsi", choices=["Daftar Unit", "Tambah Unit", "Status Unit", "Hapus Unit", "Kembali"])
+            inquirer.List("Opsi Pilih Pengaturan Unit", message="Pilih Opsi", choices=["Daftar Unit", "Tambah Unit", "Ubah Unit", "Hapus Unit", "Kembali"])
         ]
         jawaban = inquirer.prompt(opsi)
         Pilihan_Menu = jawaban["Opsi Pilih Pengaturan Unit"]
@@ -17,8 +17,8 @@ def Pengaturan_Unit():
             Lihat_Unit()
         elif Pilihan_Menu == "Tambah Unit":
             Tambah_Unit()
-        elif Pilihan_Menu == "Status Unit":
-            Status_Unit()
+        elif Pilihan_Menu == "Ubah Unit":
+            Ubah_Unit()
         elif Pilihan_Menu == "Hapus Unit":
             Hapus_Unit()
         elif Pilihan_Menu == "Kembali":
@@ -36,7 +36,7 @@ def Lihat_Unit():
         tabelUnit = PrettyTable()
         tabelUnit.field_names = ["Nomor Unit", "Tipe Unit", "Harga Unit", "Status Unit", "Nama Penghuni", "Nomor Kontak"]
                 
-        for Nomor_Unit, dataUnit in Data.Daftar_Unit.items():
+        for Nomor_Unit, dataUnit in sorted(Data.Daftar_Unit.items()):
             tabelUnit.add_row([Nomor_Unit,
                                 dataUnit['Tipe Unit'],
                                 dataUnit['Harga Unit'],
@@ -46,8 +46,8 @@ def Lihat_Unit():
                                 ])
         print(tabelUnit)
     print()  
-    print('=' * 40)
-    kembali = input('Tekan Enter Untuk Kembali')
+    print("=========================")
+    input("Tekan Enter Untuk Kembali")
 
 def Tambah_Unit():
     os.system("cls")
@@ -55,7 +55,7 @@ def Tambah_Unit():
     print("                                   MENAMBAHKAN UNIT                                      ")
     print("=========================================================================================")
     opsi = [
-        inquirer.List("Opsi Pilih Konfirmasi", message="Apakah Anda ingin menambahkan unit ini?", choices=["Ya", "Tidak"])
+        inquirer.List("Opsi Pilih Konfirmasi", message="Apakah Anda ingin menambahkan unit?", choices=["Ya", "Tidak"])
     ]
     jawaban = inquirer.prompt(opsi)
     Hasil_Opsi = jawaban["Opsi Pilih Konfirmasi"]
@@ -69,6 +69,10 @@ def Tambah_Unit():
             print("3 untuk Lantai dan 15 untuk Nomor Kamar")
             print("Lantai : Min. 1 dan Max. 5")
             print("Nomor Kamar : Min. 1 dan Max. 15")
+            print("---------------------------------------")
+            print()
+            print("Masukkan 0 Jika Ingin Kembali")
+            print("Masukkan 1 Jika Ingin Melihat Unit Yang Telah Terdaftar")
             try:
                 Nomor_Unit = int(input("Masukkan Nomor Unit: "))
             except ValueError:
@@ -76,11 +80,27 @@ def Tambah_Unit():
                 print("Harap Masukkan Nomor Yang Valid")
                 time.sleep(1)
                 continue
-            if Nomor_Unit <= 0:
+            if Nomor_Unit < 0:
                 os.system("cls")
                 print("Harap Masukkan Nomor Yang Valid")
                 time.sleep(1)
                 continue
+            elif Nomor_Unit == 0:
+                break
+            elif Nomor_Unit == 1:
+                os.system("cls")
+                print("Nomor Unit Yang Sudah Ada :")
+                if len(Data.Daftar_Unit) == 0:
+                    print("Belum ada")
+                    input("Tekan Enter Untuk Kembali")
+                else:
+                    for Lantai in range(1, 6):
+                        print("Lantai", Lantai, ":", end=" ")
+                        for Nomor in sorted(Data.Daftar_Unit):
+                            if Nomor // 100 == Lantai:
+                                print(Nomor, end=" ")
+                        print()
+                    input("Tekan Enter Untuk Kembali")
             else:
                 Lantai = Nomor_Unit // 100
                 Nomor_Kamar = Nomor_Unit % 100
@@ -96,16 +116,21 @@ def Tambah_Unit():
                     continue
                 else:
                     opsi = [
-                        inquirer.List("Pilihan Tipe Unit", message="Silahkan Pilih Tipe Unit Yang Ingin Ditambahkan", choices=["Kecil", "Besar"])
+                        inquirer.List("Pilihan Tipe Unit", message="Silahkan Pilih Tipe Unit Yang Ingin Ditambahkan", choices=["Studio", "1BR", "2BR", "Batal"])
                     ]
                     jawaban = inquirer.prompt(opsi)
                     Hasil_Opsi = jawaban["Pilihan Tipe Unit"]
-                    if Hasil_Opsi == "Kecil":
-                        Tipe_Unit = "Kecil"
-                        Harga_Unit = 1000000
-                    else:
-                        Tipe_Unit = "Besar"
+                    if Hasil_Opsi == "Studio":
+                        Tipe_Unit = "Studio"
                         Harga_Unit = 2000000
+                    elif Hasil_Opsi == "1BR":
+                        Tipe_Unit = "1BR"
+                        Harga_Unit = 3000000
+                    elif Hasil_Opsi == "2BR":
+                        Tipe_Unit = "2BR"
+                        Harga_Unit = 4500000
+                    else:
+                        break
 
                     Unit_Baru = {
                         'Tipe Unit': Tipe_Unit,
@@ -122,140 +147,158 @@ def Tambah_Unit():
     elif Hasil_Opsi == "Tidak":
         pass
 
-def Status_Unit():
+def Ubah_Unit():
+    Balik_Menu_Utama = False
     while True:
         os.system("cls")
         print("=========================================================================================")
-        print("                                  MENGUBAH STATUS UNIT                                   ")
+        print("                                      MENGUBAH UNIT                                      ")
         print("=========================================================================================")
         if len(Data.Daftar_Unit) == 0:
             print("Belum Ada Data Unit Di Dalam Daftar")
-            print()  
+            print()
             print('=' * 40)
             input('Tekan Enter Untuk Kembali')
             break
+        print("Masukkan 0 Jika Ingin Kembali")
+        print("Masukkan 1 Jika Ingin Melihat Unit Yang Telah Terdaftar")
+        try:
+            Nomor_Tujuan = int(input("Masukkan Nomor Unit Yang Ingin Diubah: "))
+        except ValueError:
+            print("Harap Masukkan Nomor Unit Yang Valid!")
+            time.sleep(1)
+            continue
+        if Nomor_Tujuan == 0:
+            break
+        elif Nomor_Tujuan == 1:
+            os.system("cls")
+            print("Nomor Unit Yang Sudah Ada :")
+            for Lantai in range(1, 6):
+                print("Lantai", Lantai, ":", end=" ")
+                for Nomor in sorted(Data.Daftar_Unit):
+                    if Nomor // 100 == Lantai:
+                        print(Nomor, end=" ")
+                print()
+            input("Tekan Enter Untuk Kembali")
+            continue
+        elif Nomor_Tujuan not in Data.Daftar_Unit:
+            print("Nomor Tersebut Tidak Ditemukan Di Dalam Daftar")
+            time.sleep(1)
+            continue
+
+        Unit = Data.Daftar_Unit[Nomor_Tujuan]
+
+        if Unit['Status Unit'] == "Terisi":
+            os.system("cls")
+            print("Unit Terisi Tidak Bisa Diubah!")
+            time.sleep(1)
         else:
-            opsi = [
-                inquirer.List("Opsi Pilih Konfirmasi", message="Apakah Anda ingin mengubah status Unit?", choices=["Ya", "Tidak"])
-            ]
-            jawaban = inquirer.prompt(opsi)
-            Hasil_Opsi = jawaban["Opsi Pilih Konfirmasi"]
-            if Hasil_Opsi == "Ya":
-                while True:
-                    os.system("cls")
-                    try:
-                        Nomor_Tujuan = int(input("Masukkan Nomor Unit Yang Ingin Diubah: "))
-                    except ValueError:
-                        print("Harap Masukkan Nomor Unit Yang Valid!")
-                        time.sleep(2)
-                        continue
-                    if Nomor_Tujuan <= 0:
-                        os.system("cls")
-                        print("Harap Masukkan Nomor Unit Yang Valid")
-                        time.sleep(2)
-                        continue
-                    if Nomor_Tujuan in Data.Daftar_Unit:
-                        os.system("cls")
-                        Unit = Data.Daftar_Unit[Nomor_Tujuan]
-                        if Unit['Status Unit'] == "Terisi":
-                            print("Unit No", Nomor_Tujuan, "Saat Ini Diisi Oleh", Unit['Nama Penghuni'])
-                            opsi = [
-                                inquirer.List("Pilihan1", message="Apakah Anda Ingin Mengosongkan Unit Ini?", choices=["Ya", "Tidak"])
-                            ]
-                            jawaban = inquirer.prompt(opsi)
-                            Hasil_Opsi = jawaban["Pilihan1"]
-                            if Hasil_Opsi == "Ya":
-                                Unit['Status Unit'] = "Kosong"
-                                Unit['Nama Penghuni'] = "-"
-                                Unit['Nomor Kontak'] = "-"
-                                print("Berhasil!, Unit No", Nomor_Tujuan, "Telah Dikosongkan")
-                                time.sleep(2)
-                                break
-
-                            else:
-                                break
-                        else:
-                            os.system("cls")
-                            print("Unit No", Nomor_Tujuan, "Saat Ini Kosong")
-                            opsi = [
-                                inquirer.List("Pilihan2", message="Apakah Anda Ingin Mengisi Unit Ini?", choices=["Ya", "Tidak"])
-                            ]
-                            jawaban = inquirer.prompt(opsi)
-                            Hasil_Opsi = jawaban["Pilihan2"]
-                            if Hasil_Opsi == "Ya":
-                                Nama_Penghuni = input("Masukkan Nama Penghuni: ")
-                                Nomor_Kontak = input("Masukkan Kontak Penghuni: ")
-                                Unit['Status Unit'] = "Terisi"
-                                Unit['Nama Penghuni'] = Nama_Penghuni
-                                Unit['Nomor Kontak'] = Nomor_Kontak
-                                print("Berhasil!, Unit No", Nomor_Tujuan, "Telah Diisi Oleh", Unit['Nama Penghuni'])
-                                time.sleep(1)
-                                break
-                            else: 
-                                break
-                    else:
-                        print("Nomor Tersebut Tidak Ditemukan Di Dalam Daftar")
-                        time.sleep(2)
-                        break
-            else:
-                break
-        
-
-    
-def Hapus_Unit():
-    os.system("cls")
-    print("=========================================================================================")
-    print("                                      MENGHAPUS UNIT                                     ")
-    print("=========================================================================================")
-    if len(Data.Daftar_Unit) == 0:
-        print("Belum Ada Data Unit Di Dalam Daftar")
-        print()  
-        print('=' * 40)
-        input('Tekan Enter Untuk Kembali')
-    else:
-        opsi = [
-            inquirer.List("Opsi Pilih Konfirmasi", message="Apakah Anda ingin menghapus unit?", choices=["Ya", "Tidak"])
-        ]
-        jawaban = inquirer.prompt(opsi)
-        Hasil_Opsi = jawaban["Opsi Pilih Konfirmasi"]
-        if Hasil_Opsi == "Ya":
             while True:
-                try:
-                    Nomor_Hapus = int(input("Masukkan Nomor Unit Yang Ingin Dihapus: "))
-                except ValueError:
-                    os.system("cls")
-                    print("Harap Masukkan Nomor Yang Valid")
-                    time.sleep(1)
-                    continue
-                if Nomor_Hapus <= 0:
-                    os.system("cls")
-                    print("Harap Masukkan Nomor Yang Valid")
-                    time.sleep(1)
-                    continue
-                if Nomor_Hapus in Data.Daftar_Unit:
-                    Unit = Data.Daftar_Unit[Nomor_Hapus]
-                    if Unit['Status Unit'] == "Terisi":
+                os.system("cls")
+                print("Nomor Unit Yang Ingin Diubah:", Nomor_Tujuan)
+                print("Tipe Unit Saat Ini:", Unit['Tipe Unit'])
+                print("Harga Unit Saat Ini:", Unit['Harga Unit'])
+                opsi = [
+                    inquirer.List("Pilihan1", message="Apakah Anda Ingin Mengubah Tipe Unit Ini?", choices=["Ya", "Tidak"])
+                ]
+                jawaban = inquirer.prompt(opsi)
+                if jawaban["Pilihan1"] == "Ya":
+                    while True:
                         os.system("cls")
-                        print("Harap Kosongkan Kamar Terlebih Dahulu!")
-                        time.sleep(2)
-                        break
-                    else:
+                        print("Nomor Unit Yang Ingin Diubah:", Nomor_Tujuan)
+                        print("Tipe Unit Saat Ini:", Unit['Tipe Unit'])
+                        print("Harga Unit Saat Ini:", Unit['Harga Unit'])
                         opsi = [
-                            inquirer.List("pilihan", message="Apakah Anda Ingin Menghapus Unit ini?", choices=["Ya", "Tidak"])
+                            inquirer.List("Tipe Unit", message="Silahkan Pilih Tipe Unit Yang Baru", choices=["Studio", "1BR", "2BR", "Batal"])
                         ]
                         jawaban = inquirer.prompt(opsi)
-                        Hasil_Opsi = jawaban["pilihan"]
-                        if Hasil_Opsi == "Ya":
-                            del Data.Daftar_Unit[Nomor_Hapus]
-                            print("Berhasil!, Unit No", Nomor_Hapus, "Telah Dihapus Dari Daftar")
-                            time.sleep(2)
-                            break
+                        if jawaban["Tipe Unit"] == Unit['Tipe Unit']:
+                            print("Pilih Tipe Yang Berbeda!")
+                            time.sleep(1)
+                            continue
                         else:
+                            if jawaban["Tipe Unit"] == "Studio":
+                                Unit['Tipe Unit'] = "Studio"
+                                Unit['Harga Unit'] = 2000000
+                            elif jawaban["Tipe Unit"] == "1BR":
+                                Unit['Tipe Unit'] = "1BR"
+                                Unit['Harga Unit'] = 3000000
+                            elif jawaban["Tipe Unit"] == "2BR":
+                                Unit['Tipe Unit'] = "2BR"
+                                Unit['Harga Unit'] = 4500000
+                            else:
+                                break
+                            print("Berhasil!, Tipe Unit No", Nomor_Tujuan, "Telah Berhasil Diubah")
+                            time.sleep(2)
+                            Balik_Menu_Utama = True
                             break
-                else:
-                    os.system("cls")
-                    print("Nomor Tersebut Tidak Ditemukan Di Dalam Daftar")
-                    time.sleep(2)
                     break
+                else:
+                    break
+        if Balik_Menu_Utama:
+            break
+                       
+        
+def Hapus_Unit():
+    Balik_Menu_Utama = False
+    while True:
+        os.system("cls")
+        print("=========================================================================================")
+        print("                                      MENGHAPUS UNIT                                     ")
+        print("=========================================================================================")
+        if len(Data.Daftar_Unit) == 0:
+            print("Belum Ada Data Unit Di Dalam Daftar")
+            print()
+            print('=' * 40)
+            input('Tekan Enter Untuk Kembali')
+            break
+        print("Masukkan 0 Jika Ingin Kembali")
+        print("Masukkan 1 Jika Ingin Melihat Unit Yang Telah Terdaftar")
+        try:
+            Nomor_Hapus = int(input("Masukkan Nomor Unit Yang Ingin Dihapus: "))
+        except ValueError:
+            print("Harap Masukkan Nomor Unit Yang Valid!")
+            time.sleep(1)
+            continue
+        if Nomor_Hapus == 0:
+            break
+        elif Nomor_Hapus == 1:
+            os.system("cls")
+            print("Nomor Unit Yang Sudah Ada :")
+            for Lantai in range(1, 6):
+                print("Lantai", Lantai, ":", end=" ")
+                for Nomor in sorted(Data.Daftar_Unit):
+                    if Nomor // 100 == Lantai:
+                        print(Nomor, end=" ")
+                print()
+            input("Tekan Enter Untuk Kembali")
+            continue
+        elif Nomor_Hapus not in Data.Daftar_Unit:
+            print("Nomor Tersebut Tidak Ditemukan Di Dalam Daftar")
+            time.sleep(1)
+            continue
+
+        Unit = Data.Daftar_Unit[Nomor_Hapus]
+
+        if Unit['Status Unit'] == "Terisi":
+            os.system("cls")
+            print("Unit Terisi Tidak Bisa Dihapus!")
+            time.sleep(1)
         else:
-            pass
+            while True:
+                print("Tipe Unit :", Unit['Tipe Unit'])
+                print("Harga Unit:", Unit['Harga Unit'])
+                opsi = [
+                    inquirer.List("Pilihan1", message="Apakah Anda Ingin Menghapus Unit Ini?", choices=["Ya", "Tidak"])
+                ]
+                jawaban = inquirer.prompt(opsi)
+                if jawaban["Pilihan1"] == "Ya":
+                    del Data.Daftar_Unit[Nomor_Hapus]
+                    print("Berhasil!, Unit No", Nomor_Hapus, "Telah Dihapus Dari Daftar")
+                    time.sleep(2)
+                    Balik_Menu_Utama = True
+                    break
+                else:
+                    break
+        if Balik_Menu_Utama:
+            break
