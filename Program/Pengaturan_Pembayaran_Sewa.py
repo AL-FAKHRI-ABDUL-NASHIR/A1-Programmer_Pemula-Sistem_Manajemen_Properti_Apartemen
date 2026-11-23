@@ -17,12 +17,11 @@ def Pengaturan_Pembayaran_Sewa():
         tabelUnit.field_names = ["Nomor Unit", "Nama Penghuni", "Nomor Kontak", "Harga Unit", "Status Pembayaran"]
         for Nomor_Unit, dataUnit in Daftar_Unit.items():
             if dataUnit['Status Unit'] == "Terisi":
-                Status_Bayar = Daftar_Pembayaran.get(Nomor_Unit, "Belum")
                 tabelUnit.add_row([Nomor_Unit,
                                    dataUnit['Nama Penghuni'],
                                    dataUnit['Nomor Kontak'],
                                    dataUnit['Harga Unit'],
-                                   Status_Bayar
+                                   dataUnit['Status Bayar Sewa']
                                    ])
         print(tabelUnit)
         print("Masukkan 0 Untuk Kembali")
