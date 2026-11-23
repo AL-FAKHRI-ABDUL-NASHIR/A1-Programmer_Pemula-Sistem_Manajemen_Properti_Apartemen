@@ -3,11 +3,18 @@ import inquirer
 
 import Data
 
+def cari_id_user(Nama_Lengkap):
+    for keys, value in Data.Data_Akun.items():
+        if value['Username'] == Nama_Lengkap:
+            return keys
+
 def Fitur_Pembayaran_Sewa(Nama_Lengkap):
     Unit = None
-    for i, Data_Kamar in Data.Data_Unit.items():
+    Unit_Keys = 0
+    for i, Data_Kamar in Data.Daftar_Unit.items():
         if Data_Kamar['Nama Penghuni'] == Nama_Lengkap:
             Unit = Data_Kamar
+            Unit_Keys = i
 
     # Apakah unit penyewa ditemukan?
     if Unit is None:
@@ -16,7 +23,7 @@ def Fitur_Pembayaran_Sewa(Nama_Lengkap):
         input("Tekan Enter Untuk Kembali")
         return
 
-    Tagihan_Sewa = int(Unit["Harga"])
+    Tagihan_Sewa = int(Unit["Harga Unit"])
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -51,7 +58,9 @@ def Fitur_Pembayaran_Sewa(Nama_Lengkap):
             if Uang_Bayar >= Tagihan_Sewa:
                 kembalian = Uang_Bayar - Tagihan_Sewa
                 Data.Simpanan_Uang_Admin += Tagihan_Sewa
-                Unit["Status Bayar Sewa"] = "Sudah Bayar"
+                Data.Daftar_Unit[Unit_Keys]["Status Bayar Sewa"] = "Sudah Bayar"
+                kunci = cari_id_user(Nama_Lengkap)
+                Data.Data_Akun[kunci]["Status Bayar Sewa"] = "Sudah Bayar"
                 print("Pembayaran berhasil")
                 print(f"Kembalian anda ialah Rp.{kembalian}")
                 print('=' * 40)

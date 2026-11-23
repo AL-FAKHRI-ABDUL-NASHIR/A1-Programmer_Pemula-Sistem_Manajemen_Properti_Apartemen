@@ -3,7 +3,7 @@ import time
 import inquirer
 from prettytable import PrettyTable
 
-from Data import Data_Unit
+from Data import Daftar_Unit
 from Data import Daftar_Pembayaran
 
 def Pengaturan_Pembayaran_Sewa():
@@ -15,14 +15,13 @@ def Pengaturan_Pembayaran_Sewa():
 
         tabelUnit = PrettyTable()
         tabelUnit.field_names = ["Nomor Unit", "Nama Penghuni", "Nomor Kontak", "Harga Unit", "Status Pembayaran"]
-        for Nomor_Unit, dataUnit in Data_Unit.items():
+        for Nomor_Unit, dataUnit in Daftar_Unit.items():
             if dataUnit['Status Unit'] == "Terisi":
-                Status_Bayar = Daftar_Pembayaran.get(Nomor_Unit, "Belum")
                 tabelUnit.add_row([Nomor_Unit,
                                    dataUnit['Nama Penghuni'],
                                    dataUnit['Nomor Kontak'],
                                    dataUnit['Harga Unit'],
-                                   Status_Bayar
+                                   dataUnit['Status Bayar Sewa']
                                    ])
         print(tabelUnit)
         print("Masukkan 0 Untuk Kembali")
@@ -31,18 +30,18 @@ def Pengaturan_Pembayaran_Sewa():
             Nomor_Unit = input("Masukkan Nomor Unit Penyewa: ")
             if Nomor_Unit == "0":
                 break
-            if Nomor_Unit not in Data_Unit:
+            if Nomor_Unit not in Daftar_Unit:
                 os.system("cls")
                 print("Nomor Unit Tidak Ada Di Dalam Daftar")
                 time.sleep(1)
                 continue
-            elif Data_Unit[Nomor_Unit]['Status Unit'] != "Terisi":
+            elif Daftar_Unit[Nomor_Unit]['Status Unit'] != "Terisi":
                 os.system("cls")
                 print("Unit Tersebut Tidak Memiliki Penyewa")
                 time.sleep(1)
                 continue
             else:
-                dataUnit = Data_Unit[Nomor_Unit]
+                dataUnit = Daftar_Unit[Nomor_Unit]
                 Status_Bayar = Daftar_Pembayaran.get(Nomor_Unit, "Belum")
                 os.system("cls")
                 print("Nomor Unit        :", Nomor_Unit)
