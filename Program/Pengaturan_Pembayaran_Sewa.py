@@ -29,7 +29,7 @@ def Pengaturan_Pembayaran_Sewa():
 
         try:
             Nomor_Unit = input("Masukkan Nomor Unit Penyewa: ")
-            if Nomor_Unit == "n":
+            if Nomor_Unit == "0":
                 break
             if Nomor_Unit not in Daftar_Unit:
                 os.system("cls")
