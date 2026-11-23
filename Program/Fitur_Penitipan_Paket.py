@@ -163,6 +163,3 @@ def Hapus_Form(Nama_User):
                 break
         break
 
-
-
-Fitur_Penitipan_Paket("RafaxCode")

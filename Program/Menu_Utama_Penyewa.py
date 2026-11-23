@@ -20,7 +20,7 @@ def Menu_Utama_Penyewa(Username_Log_In):
         elif Hasil_Opsi == "Penitipan Paket":
             Fitur_Penitipan_Paket.Fitur_Penitipan_Paket(Username_Log_In)
         elif Hasil_Opsi == "Pembayaran Sewa":
-            Fitur_Pembayaran_Sewa.Fitur_Pembayaran_Sewa()
+            Fitur_Pembayaran_Sewa.Fitur_Pembayaran_Sewa(Username_Log_In)
         elif Hasil_Opsi == "Kelola Akun":
             Fitur_Kelola_Akun.Fitur_Kelola_Akun(Username_Log_In)
         elif Hasil_Opsi == "Log Out":

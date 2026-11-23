@@ -1,15 +1,13 @@
 import os
 import inquirer
 
-from Data import Daftar_Unit
+import Data
 
-
-def Fitur_Pembayaran_Sewa(Nama_Lengkap, Data_Admin):
+def Fitur_Pembayaran_Sewa(Nama_Lengkap):
     Unit = None
-    for Nomor_Kamar, Data_Kamar in Daftar_Unit.items():
-        if Data_Kamar[Nomor_Kamar]["Nama Penghuni"] == Nama_Lengkap:
+    for i, Data_Kamar in Data.Data_Unit.items():
+        if Data_Kamar['Nama Penghuni'] == Nama_Lengkap:
             Unit = Data_Kamar
-            break
 
     # Apakah unit penyewa ditemukan?
     if Unit is None:
@@ -18,17 +16,16 @@ def Fitur_Pembayaran_Sewa(Nama_Lengkap, Data_Admin):
         input("Tekan Enter Untuk Kembali")
         return
 
-    Tagihan_Sewa = Unit["Harga Unit"]
+    Tagihan_Sewa = int(Unit["Harga"])
 
-    Go_Back_Fitur_Pembayaran_Sewa = False
-    while not Go_Back_Fitur_Pembayaran_Sewa:
+    while True:
         os.system('cls' if os.name == 'nt' else 'clear')
 
         # Tampilkan tagihan sewa
         print('=' * 40)
         print("PEMBAYARAN SEWA")
         print('=' * 40)
-        print(f"Tagihan Sewa : Rp{Tagihan_Sewa:,}")
+        print(f"Tagihan Sewa : Rp{Tagihan_Sewa}")
         print(f"Status Bayar : {Unit['Status Bayar Sewa']}")
         print('=' * 40)
 
@@ -38,25 +35,30 @@ def Fitur_Pembayaran_Sewa(Nama_Lengkap, Data_Admin):
         jawaban = inquirer.prompt(opsi)
         if jawaban is None:  # Ctrl+C
             break
-        Hasil_Opsi = jawaban["Opsi Pilih Bayar Sewa"]
+        Hasil_Opsi = jawaban["Opsi Pilih Bayar Sewa"] 
 
         if Hasil_Opsi == "Bayar Sewa":
+            if Unit["Status Bayar Sewa"] == "Sudah Bayar":
+                print("Anda Sudah Bayar Sewa Bulan Ini!")
+                print('=' * 40)
+                input("Tekan Enter Untuk Kembali")
+                break
             try:
                 Uang_Bayar = int(input("Masukkan Uang Bayar : Rp"))
             except ValueError:
                 Uang_Bayar = 0  # input bukan angka dianggap pembayaran gagal
 
             if Uang_Bayar >= Tagihan_Sewa:
-                # Uang sewa masuk ke simpanan uang admin
-                Data_Admin["Simpanan Uang"] += Tagihan_Sewa
+                kembalian = Uang_Bayar - Tagihan_Sewa
+                Data.Simpanan_Uang_Admin += Tagihan_Sewa
                 Unit["Status Bayar Sewa"] = "Sudah Bayar"
                 print("Pembayaran berhasil")
+                print(f"Kembalian anda ialah Rp.{kembalian}")
                 print('=' * 40)
-                kembali = input("Tekan Enter Untuk Kembali")
+                input("Tekan Enter Untuk Kembali")
             else:
-                print("Pembayaran gagal")
+                print("Pembayaran gagal, Uang Anda Tidak Cukup!")
                 print('=' * 40)
-                kembali = input("Tekan Enter Untuk Kembali")
+                input("Tekan Enter Untuk Kembali")
         elif Hasil_Opsi == "Kembali":
-            Go_Back_Fitur_Pembayaran_Sewa = True
-
+            break

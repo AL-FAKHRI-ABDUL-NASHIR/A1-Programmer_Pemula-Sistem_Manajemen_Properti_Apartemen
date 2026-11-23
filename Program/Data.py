@@ -1,20 +1,21 @@
 Data_Unit = {
     "205" : {
-        "Tipe" : "Studio",
-        "Ukuran" : "~30m²",
-        "Harga" : "2500000",
-        "Detail" : "test",
-        "Status Unit" : "Tersedia"
+        "Nama Penghuni"     : "RafaxCode",
+        "Tipe"              : "Studio",
+        "Ukuran"            : "~30m²",
+        "Harga"             : "2500000",
+        "Detail"            : "test",
+        "Status Unit"       : "Tersedia",
+        "Status Bayar Sewa" : "Belum"
     }
 }
 
-Daftar_Unit = {}
 Daftar_Pembayaran = {}
 
 Data_Akun = {
     260001 : {
         "Username" : "RafaxCode",
-        "Password" : "rafa",
+        "Password" : "",
         "Nama Lengkap" : "test1",
         "No. Hp" : "081253294845",
         "Unit Sewa" : "101",
