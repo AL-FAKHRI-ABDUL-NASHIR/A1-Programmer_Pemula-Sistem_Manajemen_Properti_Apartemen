@@ -33,7 +33,7 @@ def Daftar_Unit():
             inquirer.List("Opsi Pilih Sewa Unit", message="Apakah Anda ingin menyewa unit?", choices=["Ya", "Tidak"])
         ]
         jawaban = inquirer.prompt(opsi)
-        Hasil_Opsi = jawaban["Opsi Pilih Sewa Unit"]
+        Hasil_Opsi = jawaban["Opsi Pilih Sewa Unit"] if jawaban["Opsi Pilih Sewa Unit"] != 0 else 1
         if Hasil_Opsi == "Ya":
     #           # di sini penyewa memilih unit
             opsi = [
@@ -50,34 +50,34 @@ def Daftar_Unit():
             elif Hasil_Opsi == "Tidak":
                 pass
         elif Hasil_Opsi == "Tidak":
-            pass
+            os.system("cls")
 
 def Unit_Sewa():
     os.system("cls")
     # di sini tampilkan daftar unit yang telah disewa
     # di sini penyewa memilih unit
-#   # di sini program menampilkan informasi dari Data_Unit berdasarkan unit yang telah dipilih
+    # di sini program menampilkan informasi dari Data_Unit berdasarkan unit yang telah dipilih
     opsi = [
         inquirer.List("Opsi Pilih Unit Sewa", message="Pilih Opsi", choices=["Batalkan Sewa", "Kembali"])
     ]
     jawaban = inquirer.prompt(opsi)
     Hasil_Opsi = jawaban["Opsi Pilih Unit Sewa"]
+    if Hasil_Opsi == "Kembali":
+        os.system("cls")
+    Hasil_Opsi = jawaban["Opsi Pilih Unit Sewa"]
     if Hasil_Opsi == "Batalkan Sewa":
         opsi = [
-            inquirer.List("Opsi Pilih Unit Sewa", message="Pilih Opsi", choices=["Batalkan Sewa", "Kembali"])
+            inquirer.List("Opsi Pilih Batalkan Sewa", message="Apakah Anda ingin membatalkan sewa unit ini?", choices=["Ya", "Tidak"])
         ]
         jawaban = inquirer.prompt(opsi)
-        Hasil_Opsi = jawaban["Opsi Pilih Unit Sewa"]
-        if Hasil_Opsi == "Batalkan Sewa":
-            opsi = [
-                inquirer.List("Opsi Pilih Batalkan Sewa", message="Apakah Anda ingin membatalkan sewa unit ini?", choices=["Ya", "Tidak"])
-            ]
-            jawaban = inquirer.prompt(opsi)
-            Hasil_Opsi = jawaban["Opsi Pilih Batalkan Sewa"]
-            if Hasil_Opsi == "Ya":
-#               # di sini program membatalkan sewa (menghapus unit dari daftar unit sewa anda, mengubah informasi unit pada Data_Unit dari statusnya penuh menjadi tersedia)
-                print("Sewa Unit berhasil dibatalkan")
-                print('=' * 40)
-                kembali = input("Tekan Enter Untuk Kembali")
-            elif Hasil_Opsi == "Tidak":
-                pass
+        Hasil_Opsi = jawaban["Opsi Pilih Batalkan Sewa"]
+    if Hasil_Opsi == "Ya":
+        # di sini program membatalkan sewa (menghapus unit dari daftar unit sewa anda, mengubah informasi unit pada Data_Unit dari statusnya penuh menjadi tersedia)
+        print("Sewa Unit berhasil dibatalkan")
+        print('=' * 40)
+        input("Tekan Enter Untuk Kembali")
+        os.system("cls")
+    elif Hasil_Opsi == "Tidak":
+        print("Aksi Dibatalkan")
+        input("Tekan 'Enter' Untuk Kembali! ")
+        os.system("cls")
