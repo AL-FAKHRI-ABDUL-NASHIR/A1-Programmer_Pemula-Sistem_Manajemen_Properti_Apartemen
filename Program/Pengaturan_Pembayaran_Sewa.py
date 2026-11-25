@@ -88,4 +88,3 @@ def Pengaturan_Pembayaran_Sewa():
             print("\n" + "=" * 80 + "\nProgram dihentikan!")
             break
 
-Pengaturan_Pembayaran_Sewa()
