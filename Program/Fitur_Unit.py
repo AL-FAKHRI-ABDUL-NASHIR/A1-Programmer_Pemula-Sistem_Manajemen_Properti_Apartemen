@@ -77,6 +77,7 @@ def Unit_Sewa():
         os.system("cls")
     Hasil_Opsi = jawaban["Opsi Pilih Unit Sewa"]
     if Hasil_Opsi == "Batalkan Sewa":
+        os.system("cls")
         opsi = [
             inquirer.List("Opsi Pilih Batalkan Sewa", message="Apakah Anda ingin membatalkan sewa unit ini?", choices=["Ya", "Tidak"])
         ]
@@ -92,3 +93,5 @@ def Unit_Sewa():
         print("Aksi Dibatalkan")
         input("Tekan 'Enter' Untuk Kembali! ")
         os.system("cls")
+
+Fitur_Unit()
