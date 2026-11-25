@@ -1,10 +1,10 @@
 {
     "Daftar Unit": {
         "205": {
-            "Nama Penghuni": "RafaxCode",
             "Tipe Unit": "Studio",
             "Harga Unit": 2500000,
             "Status Unit": "Terisi",
+            "Nama Penghuni": "RafaxCode",
             "Status Bayar Sewa": "Belum",
             "Nomor Kontak": "081234567890"
         }
