@@ -3,8 +3,7 @@ import inquirer
 
 import Autentikasi
 
-Go_Out = False
-while not Go_Out:
+while True:
     Autentikasi.Menu_Autentikasi()
     os.system("cls")
     opsi = [
@@ -13,6 +12,6 @@ while not Go_Out:
     jawaban = inquirer.prompt(opsi)
     Hasil_Opsi = jawaban["Opsi Pilih Keluar"]
     if Hasil_Opsi == "Ya":
-        Go_Out = True
+        break
     elif Hasil_Opsi == "Tidak":
         pass
