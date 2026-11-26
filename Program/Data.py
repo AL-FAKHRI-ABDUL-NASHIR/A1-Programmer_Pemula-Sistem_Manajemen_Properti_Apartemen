@@ -11,7 +11,7 @@ Daftar_Unit = {
        "Nama Penghuni"     : "-",
         "Tipe Unit"         : "Studio",
         "Harga Unit"        : 2500000,
-        "Status Unit"       : "-",
+        "Status Unit"       : "Kosong",
         "Status Bayar Sewa" : "-",
         "Nomor Kontak"      : "-"
     }
