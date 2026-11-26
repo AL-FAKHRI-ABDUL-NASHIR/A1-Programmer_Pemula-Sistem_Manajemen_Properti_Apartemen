@@ -6,7 +6,14 @@ Daftar_Unit = {
         "Status Unit"       : "Terisi",
         "Status Bayar Sewa" : "Belum",
         "Nomor Kontak"      : "081234567890"
-
+    },
+    206: {
+       "Nama Penghuni"     : "-",
+        "Tipe Unit"         : "Studio",
+        "Harga Unit"        : 2500000,
+        "Status Unit"       : "-",
+        "Status Bayar Sewa" : "-",
+        "Nomor Kontak"      : "-"
     }
 }
 
