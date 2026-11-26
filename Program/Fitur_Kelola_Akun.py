@@ -22,6 +22,7 @@ def Tampilan_Akun_Penyewa(Username_Log_In):
             print(f"No. Hp : {Data["Data Akun"][i]["No. Hp"]}")
             print(f"Unit Sewa : {Data["Data Akun"][i]["Unit Sewa"]}")
             print(f"Status Bayar Sewa : {Data["Data Akun"][i]["Status Bayar Sewa"]}")
+            print(f"Pesan Pengingat : {Data["Data Akun"][i]["Pesan Pengingat"]}")
     print("-" * 110)
 
 def Setup_Username_Baru_Penyewa():
@@ -50,6 +51,8 @@ def Fitur_Kelola_Akun(Username_Log_In):
             inquirer.List("Opsi Pilih Pengaturan Kelola Akun", message="Pilih Opsi", choices=["Ubah Username", "Ubah Password", "Kembali"])
         ]
         jawaban = inquirer.prompt(opsi)
+        if jawaban is None:
+            return
         Hasil_Opsi = jawaban["Opsi Pilih Pengaturan Kelola Akun"]
         if Hasil_Opsi == "Ubah Username":
             Ganti_Username(Username_Log_In)
@@ -66,6 +69,8 @@ def Ganti_Username(Username_Log_In):
         inquirer.List("Opsi Pilih Konfirmasi", message="Apakah Anda ingin mengganti dengan username ini?", choices=["Ya", "Tidak"])
     ]
     jawaban = inquirer.prompt(opsi)
+    if jawaban is None:
+        return
     Hasil_Opsi = jawaban["Opsi Pilih Konfirmasi"]
     if Hasil_Opsi == "Ya":
         if Setup_Username_Baru_Penyewa() == "Username Sudah Ada":
@@ -95,7 +100,7 @@ def Ganti_Password(Username_Log_In, Kesempatan):
     else:
         global Password_Baru
         Tampilan_Akun_Penyewa
-        Verifikasi_Password = input("Masukkan password akun anda sekarang : ")
+        Verifikasi_Password = input("Masukkan password akun anda sekarang : ").strip()
         for i in Data["Data Akun"]:
             if Username_Log_In == Data["Data Akun"][i]["Username"]:
                 if Verifikasi_Password == Data["Data Akun"][i]["Password"]:
@@ -104,6 +109,8 @@ def Ganti_Password(Username_Log_In, Kesempatan):
                         inquirer.List("Opsi Pilih Konfirmasi", message="Apakah Anda ingin mengganti dengan password ini?", choices=["Ya", "Tidak"])
                     ]
                     jawaban = inquirer.prompt(opsi)
+                    if jawaban is None:
+                        return
                     Hasil_Opsi = jawaban["Opsi Pilih Konfirmasi"]
                     if Hasil_Opsi == "Ya":
                         if Setup_Password_Baru_Penyewa() == "Password Kosong":
