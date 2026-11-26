@@ -33,6 +33,7 @@ def Tampilkan_data_paket():
                             paket['Nama Penerima'],
                             paket['Nama Paket'],
                             paket['Status Paket']])
+    tabelPaket.hrules = 1
     print(tabelPaket)
     return True
 
@@ -64,12 +65,10 @@ def Pengaturan_Penitipan_Paket():
         print("=" * 110)
         print("DETAIL PAKET".center(110))
         print("=" * 110)
-        tabelPaket = PrettyTable()
-        tabelPaket.add_column("Keterangan", ["No Paket", "Nama Penerima", "Nama Paket", "Status Paket"])
-        tabelPaket.add_column("Informasi", [Nomor_Paket, paket['Nama Penerima'], paket['Nama Paket'], paket['Status Paket']])
-        tabelPaket.align = "l"
-        tabelPaket.hrules = 1
-        print(tabelPaket)
+        print("No Paket      :", Nomor_Paket)
+        print("Nama Penerima :", paket['Nama Penerima'])
+        print("Nama Paket    :", paket['Nama Paket'])
+        print("Status Paket  :", paket['Status Paket'])
         print('=' * 110)
 
         # ubah status sampai / belum
@@ -96,12 +95,10 @@ def Pengaturan_Penitipan_Paket():
             print("=" * 110)
             print("DETAIL PAKET".center(110))
             print("=" * 110)
-            tabelPaket = PrettyTable()
-            tabelPaket.add_column("Keterangan", ["No Paket", "Nama Penerima", "Nama Paket", "Status Paket"])
-            tabelPaket.add_column("Informasi", [Nomor_Paket, paket['Nama Penerima'], paket['Nama Paket'], paket['Status Paket']])
-            tabelPaket.align = "l"
-            tabelPaket.hrules = 1
-            print(tabelPaket)
+            print("No Paket      :", Nomor_Paket)
+            print("Nama Penerima :", paket['Nama Penerima'])
+            print("Nama Paket    :", paket['Nama Paket'])
+            print("Status Paket  :", paket['Status Paket'])
             print('=' * 110)
             opsi = [
                 inquirer.List("Diterima", message="Apakah paket sudah diterima oleh pemesan?", choices=["Ya", "Tidak"])
@@ -111,12 +108,15 @@ def Pengaturan_Penitipan_Paket():
                 os.system("cls")
                 print("Menghapus Form...")
                 time.sleep(2)
-                del Data["Data Paket"][Nomor_Paket]
+                del Data["Data Paket"][str(Nomor_Paket)]
                 os.system("cls")
                 susun_ulang_data_paket()
+                Simpan_Data()
                 print("Paket Telah Diterima, Form Berhasil Dihapus")
                 print('-------------------------------------------')
             else:
+                os.system("cls")
+                Simpan_Data()
                 print("Status Sampai Tersimpan, Paket Belum Diterima Pemesan")
                 print('-----------------------------------------------------')
             input('Tekan Enter Untuk Kembali')
