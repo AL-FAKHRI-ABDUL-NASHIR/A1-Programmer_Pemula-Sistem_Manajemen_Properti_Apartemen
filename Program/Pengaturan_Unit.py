@@ -352,5 +352,5 @@ def Hapus_Unit():
                 print("-----------------------------------------------------------")
                 input("Tekan Enter Untuk Kembali")
                 break
-            elif Hasil_Opsi == "Tidak":
+            else:
                 break
