@@ -15,6 +15,14 @@
             "Nama Penghuni": "-",
             "Status Bayar Sewa": "-",
             "Nomor Kontak": "-"
+        },
+        "101": {
+            "Tipe Unit": "Studio",
+            "Harga Unit": 2000000,
+            "Status Unit": "Kosong",
+            "Nama Penghuni": "-",
+            "Status Bayar Sewa": "-",
+            "Nomor Kontak": "-"
         }
     },
     "Data Akun": {

@@ -172,7 +172,8 @@ def Unit_Sewa(Nama_Penghuni):
                 inquirer.List("Opsi Pilih Unit Sewa", message="Pilih Opsi", choices=["Batalkan Sewa", "Kembali"])
             ]
             kunci = cek_unit_penyewa(Nama_Penghuni)
-            Lihat_Unit(kunci)
+            if Lihat_Unit(kunci) == False:
+                return
             jawaban = inquirer.prompt(opsi)
             if jawaban is None:
                 os.system("cls")
@@ -188,6 +189,7 @@ def Unit_Sewa(Nama_Penghuni):
                     inquirer.List("Opsi Pilih Batalkan Sewa", message="Apakah Anda ingin membatalkan sewa unit ini?", choices=["Ya", "Tidak"])
                 ]
             print("Masukkan '0' Jika Anda Ingin Kembali! ")
+            print("Masukkan '1' Untuk Menampilkan Kembali List Unit Anda!")
             Nomor_Unit = input("Masukkan Nomor Unit: ")
             Nomor_Unit = int(Nomor_Unit)
             Unit_Penyewa_Ada = False
@@ -198,6 +200,8 @@ def Unit_Sewa(Nama_Penghuni):
             if Nomor_Unit == 0:
                 os.system("cls")
                 return
+            elif Nomor_Unit == 1:
+                continue
             elif Unit_Penyewa_Ada != True:
                 raise EOFError
             break
@@ -219,11 +223,13 @@ def Unit_Sewa(Nama_Penghuni):
     Hasil_Opsi = jawaban["Opsi Pilih Batalkan Sewa"]
 
     if Hasil_Opsi == "Ya":
-       for nomorUnit, isi in sorted(Data.Daftar_Unit.items()):
-        if nomorUnit == Nomor_Unit:
-            isi["Nama Penghuni"] = "-"
-            isi["Status Unit"] = "Kosong"
-            isi["Nomor Kontak"] = "-"
+        os.system("cls")
+        for nomorUnit, isi in sorted(Data.Daftar_Unit.items()):
+            if nomorUnit == Nomor_Unit:
+                isi["Nama Penghuni"] = "-"
+                isi["Status Unit"] = "Kosong"
+                isi["Nomor Kontak"] = "-"
+        print("Kontrak Sewa Dibatalkan!")
         print('=' * 40)
         input("Tekan Enter Untuk Kembali")
         os.system("cls")
