@@ -10,6 +10,8 @@ while True:
         inquirer.List("Opsi Pilih Keluar", message="Apakah Anda ingin keluar?", choices=["Ya", "Tidak"])
     ]
     jawaban = inquirer.prompt(opsi)
+    if jawaban is None:
+        continue
     Hasil_Opsi = jawaban["Opsi Pilih Keluar"]
     if Hasil_Opsi == "Ya":
         break
