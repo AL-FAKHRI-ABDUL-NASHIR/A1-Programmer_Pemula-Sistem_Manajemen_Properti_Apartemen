@@ -4,7 +4,6 @@ import inquirer
 from prettytable import PrettyTable
 
 from Data import Daftar_Unit
-from Data import Daftar_Pembayaran
 
 def Pengaturan_Pembayaran_Sewa():
     while True:
@@ -42,20 +41,20 @@ def Pengaturan_Pembayaran_Sewa():
                 continue
             else:
                 dataUnit = Daftar_Unit[Nomor_Unit]
-                Status_Bayar = Daftar_Pembayaran.get(Nomor_Unit, "Belum")
+                dataUnit["Status Bayar Sewa"] = Daftar_Unit(Nomor_Unit, "Belum")
                 os.system("cls")
                 print("Nomor Unit        :", Nomor_Unit)
                 print("Tipe Unit         :", dataUnit['Tipe Unit'])
                 print("Harga Unit        :", dataUnit['Harga Unit'])
                 print("Nama Penghuni     :", dataUnit['Nama Penghuni'])
                 print("Nomor Kontak      :", dataUnit['Nomor Kontak'])
-                print("Status Pembayaran :", Status_Bayar)
+                print("Status Pembayaran :", dataUnit["Status Bayar Sewa"])
                 print('=' * 40)
 
-                if Status_Bayar == "Sudah":
+                if dataUnit["Status Bayar Sewa"] == "Sudah Bayar":
                     print("Pembayaran sewa telah lunas")
                     print('=' * 40)
-                    kembali = input('Tekan Enter Untuk Kembali')
+                    input('Tekan Enter Untuk Kembali')
                     break
                 else:
                     opsi = [
@@ -64,7 +63,7 @@ def Pengaturan_Pembayaran_Sewa():
                     jawaban = inquirer.prompt(opsi)
                     Hasil_Opsi = jawaban["Opsi Pilih Pesan Pengingat"]
                     if Hasil_Opsi == "Kirim Pesan Pengingat":
-                        Pesan = input("Masukkan Pesan Pengingat: ")
+                        input("Masukkan Pesan Pengingat: ")
                         opsi = [
                             inquirer.List("Opsi Pilih Konfirmasi", message="Kirim pesan pengingat ke penyewa?", choices=["Ya", "Tidak"])
                         ]
@@ -74,7 +73,7 @@ def Pengaturan_Pembayaran_Sewa():
                             # di sini program mengirim pesan ke penyewa
                             print("Pesan berhasil terkirim")
                             print('=' * 40)
-                            kembali = input('Tekan Enter Untuk Kembali')
+                            input('Tekan Enter Untuk Kembali')
                             break
                         else:
                             break
@@ -85,3 +84,7 @@ def Pengaturan_Pembayaran_Sewa():
             print("Harap Masukkan Nomor Yang Valid")
             time.sleep(1)
             continue
+        except KeyboardInterrupt:
+            print("\n" + "=" * 80 + "\nProgram dihentikan!")
+            break
+
