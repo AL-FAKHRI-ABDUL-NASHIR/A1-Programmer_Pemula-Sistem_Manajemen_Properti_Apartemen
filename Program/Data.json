@@ -5,8 +5,16 @@
             "Harga Unit": 2500000,
             "Status Unit": "Terisi",
             "Nama Penghuni": "RafaxCode",
+            "Status Bayar Sewa": "Sudah Bayar",
+            "Nomor Kontak": "-"
+        },
+        "206": {
+            "Tipe Unit": "Studio",
+            "Harga Unit": 2000000,
+            "Status Unit": "Terisi",
+            "Nama Penghuni": "2",
             "Status Bayar Sewa": "Belum",
-            "Nomor Kontak": "081234567890"
+            "Nomor Kontak": "086712344334"
         }
     },
     "Data Akun": {
@@ -25,6 +33,14 @@
             "No. Hp": "081253106725",
             "Unit Sewa": "202",
             "Status Bayar Sewa": "Sudah Bayar"
+        },
+        "260003": {
+            "Username": "2",
+            "Password": "2",
+            "Nama Lengkap": "2",
+            "No. Hp": "086712344334",
+            "Unit Sewa": "-",
+            "Status Bayar Sewa": "Sudah Bayar"
         }
     },
     "Data Paket": {
@@ -42,5 +58,5 @@
     "Daftar Pembayaran": {},
     "Username Admin": "Admin123",
     "Password Admin": "Code123",
-    "Simpanan Uang Admin": 1000000.0
+    "Simpanan Uang Admin": 7000000.0
 }

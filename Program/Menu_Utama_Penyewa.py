@@ -6,7 +6,7 @@ import Fitur_Penitipan_Paket
 import Fitur_Pembayaran_Sewa
 import Fitur_Kelola_Akun
 
-def Menu_Utama_Penyewa(Username_Log_In):
+def Menu_Utama_Penyewa(Username_Log_In, Kontak_User):
     while True:
         os.system("cls")
         print("=" * 110)
@@ -20,7 +20,7 @@ def Menu_Utama_Penyewa(Username_Log_In):
             return
         Hasil_Opsi = jawaban["Opsi Pilih Menu Utama Penyewa"]
         if Hasil_Opsi == "Daftar Unit":
-            Fitur_Unit.Fitur_Unit(Username_Log_In)
+            Fitur_Unit.Fitur_Unit(Username_Log_In, Kontak_User)
         elif Hasil_Opsi == "Penitipan Paket":
             Fitur_Penitipan_Paket.Fitur_Penitipan_Paket(Username_Log_In)
         elif Hasil_Opsi == "Pembayaran Sewa":

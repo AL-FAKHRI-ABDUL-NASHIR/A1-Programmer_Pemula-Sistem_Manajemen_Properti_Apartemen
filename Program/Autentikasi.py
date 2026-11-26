@@ -23,6 +23,12 @@ def Setup_Log_In_Penyewa():
         if Username_Log_In == Data["Data Akun"][i]["Username"] and Password_Log_In == Data["Data Akun"][i]["Password"]:
             return True
 
+def Cari_Kontak_User():
+    for i in Data["Data Akun"]:
+        if Username_Log_In == Data["Data Akun"][i]["Username"] and Password_Log_In == Data["Data Akun"][i]["Password"]:
+            return Data["Data Akun"][i]["No. Hp"]
+    return "-"
+
 def Countdown():
     detik = 30
     while detik > 0:
@@ -89,11 +95,12 @@ def Menu_Log_In(Kesempatan):
                 input("Tekan Enter Untuk Lanjut")
                 Menu_Utama_Admin.Menu_Utama_Admin()
             elif Setup_Log_In_Penyewa():
+                Kontak_User = Cari_Kontak_User()
                 os.system("cls")
                 print("Login berhasil!")
                 print("------------------------")
                 input("Tekan Enter Untuk Lanjut")
-                Menu_Utama_Penyewa.Menu_Utama_Penyewa(Username_Log_In)
+                Menu_Utama_Penyewa.Menu_Utama_Penyewa(Username_Log_In, Kontak_User)
             else:
                 os.system("cls")
                 print("=====Login Gagal=====")
