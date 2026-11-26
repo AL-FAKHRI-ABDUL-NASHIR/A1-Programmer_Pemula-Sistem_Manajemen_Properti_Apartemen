@@ -42,19 +42,19 @@ def Lihat_Unit():
         print("Belum Ada Data Unit Di Dalam Daftar")
         input("Tekan Enter Untuk Kembali")
     else:
-        Tabel_Unit = PrettyTable()
-        Tabel_Unit.field_names = ["Nomor Unit", "Tipe Unit", "Harga Unit", "Status Unit", "Nama Penghuni", "Status Bayar Sewa", "Nomor Kontak"]
+        tabelUnit = PrettyTable()
+        tabelUnit.field_names = ["Nomor Unit", "Tipe Unit", "Harga Unit", "Status Unit", "Nama Penghuni", "Status Bayar Sewa", "Nomor Kontak"]
 
-        for Nomor_Unit, Data_Unit in sorted(Data["Daftar Unit"].items()):
-            Tabel_Unit.add_row([Nomor_Unit,
-                                Data_Unit['Tipe Unit'],
-                                Data_Unit['Harga Unit'],
-                                Data_Unit['Status Unit'],
-                                Data_Unit['Nama Penghuni'],
-                                Data_Unit['Status Bayar Sewa'],
-                                Data_Unit['Nomor Kontak']
+        for Nomor_Unit, dataUnit in sorted(Data["Daftar Unit"].items()):
+            tabelUnit.add_row([Nomor_Unit,
+                                dataUnit['Tipe Unit'],
+                                dataUnit['Harga Unit'],
+                                dataUnit['Status Unit'],
+                                dataUnit['Nama Penghuni'],
+                                dataUnit['Status Bayar Sewa'],
+                                dataUnit['Nomor Kontak']
                                 ])
-        print(Tabel_Unit)  
+        print(tabelUnit)  
     print("=" * 110)
     input("Tekan Enter Untuk Kembali")
 
