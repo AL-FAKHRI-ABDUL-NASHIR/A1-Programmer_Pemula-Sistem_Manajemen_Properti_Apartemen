@@ -45,6 +45,8 @@ def Pengaturan_Kelola_Akun():
             inquirer.List("Opsi Pilih Pengaturan Kelola Akun", message="Pilih Opsi", choices=["Ubah Username", "Ubah Password", "Kembali"])
         ]
         jawaban = inquirer.prompt(opsi)
+        if jawaban is None:
+            return
         Hasil_Opsi = jawaban["Opsi Pilih Pengaturan Kelola Akun"]
         if Hasil_Opsi == "Ubah Username":
             Ganti_Username()
@@ -61,6 +63,8 @@ def Ganti_Username():
         inquirer.List("Opsi Pilih Konfirmasi", message="Apakah Anda ingin mengganti dengan username ini?", choices=["Ya", "Tidak"])
     ]
     jawaban = inquirer.prompt(opsi)
+    if jawaban is None:
+        return
     Hasil_Opsi = jawaban["Opsi Pilih Konfirmasi"]
     if Hasil_Opsi == "Ya":
         if Setup_Username_Baru_Admin() == "Username Sudah Ada":
@@ -87,7 +91,7 @@ def Ganti_Password(Kesempatan):
     else:
         global Password_Baru
         Tampilan_Akun_Admin()
-        Verifikasi_Password = input("Masukkan password akun anda sekarang terlebih dahulu untuk verifikasi: ")
+        Verifikasi_Password = input("Masukkan password akun anda sekarang terlebih dahulu untuk verifikasi: ").strip()
         if Verifikasi_Password == Data["Password Admin"]:
             Tampilan_Akun_Admin()
             Password_Baru = input("Masukkan Password Baru : ").strip()
@@ -95,6 +99,8 @@ def Ganti_Password(Kesempatan):
                 inquirer.List("Opsi Pilih Konfirmasi", message="Apakah Anda ingin mengganti dengan password ini?", choices=["Ya", "Tidak"])
             ]
             jawaban = inquirer.prompt(opsi)
+            if jawaban is None:
+                return
             Hasil_Opsi = jawaban["Opsi Pilih Konfirmasi"]
             if Hasil_Opsi == "Ya":
                 if Setup_Password_Baru_Admin() == "Password Kosong":
