@@ -7,6 +7,14 @@
             "Nama Penghuni": "RafaxCode",
             "Status Bayar Sewa": "Belum",
             "Nomor Kontak": "081234567890"
+        },
+        "206": {
+            "Tipe Unit": "Studio",
+            "Harga Unit": 2000000,
+            "Status Unit": "Kosong",
+            "Nama Penghuni": "-",
+            "Status Bayar Sewa": "-",
+            "Nomor Kontak": "-"
         }
     },
     "Data Akun": {
@@ -25,6 +33,14 @@
             "No. Hp": "081253106725",
             "Unit Sewa": "202",
             "Status Bayar Sewa": "Sudah Bayar"
+        },
+        "260003": {
+            "Username": "2",
+            "Password": "2",
+            "Nama Lengkap": "2",
+            "No. Hp": "000000000000",
+            "Unit Sewa": "-",
+            "Status Bayar Sewa": "-"
         }
     },
     "Data Paket": {
