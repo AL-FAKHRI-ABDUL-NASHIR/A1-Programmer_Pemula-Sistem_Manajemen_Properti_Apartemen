@@ -55,6 +55,8 @@ def Pengaturan_Penitipan_Paket():
             inquirer.List("Pilih Paket", message="Pilih Paket", choices=Pilihan)
         ]
         jawaban = inquirer.prompt(opsi)
+        if jawaban is None:
+            return
         Nomor_Paket = jawaban["Pilih Paket"]
         if Nomor_Paket is None:
             break
@@ -76,6 +78,8 @@ def Pengaturan_Penitipan_Paket():
             inquirer.List("Sampai", message="Apakah paket sudah sampai?", choices=["Ya", "Tidak", "Batal"])
         ]
         jawaban = inquirer.prompt(opsi)
+        if jawaban is None:
+            return
         Hasil = jawaban["Sampai"]
 
         if Hasil == "Batal":
@@ -104,7 +108,10 @@ def Pengaturan_Penitipan_Paket():
                 inquirer.List("Diterima", message="Apakah paket sudah diterima oleh pemesan?", choices=["Ya", "Tidak"])
             ]
             jawaban = inquirer.prompt(opsi)
-            if jawaban["Diterima"] == "Ya":
+            if jawaban is None:
+                return
+            Hasil_Opsi = jawaban["Diterima"]
+            if Hasil_Opsi == "Ya":
                 os.system("cls")
                 print("Menghapus Form...")
                 time.sleep(2)
@@ -114,7 +121,7 @@ def Pengaturan_Penitipan_Paket():
                 Simpan_Data()
                 print("Paket Telah Diterima, Form Berhasil Dihapus")
                 print('-------------------------------------------')
-            else:
+            elif Hasil_Opsi == "Tidak":
                 os.system("cls")
                 Simpan_Data()
                 print("Status Sampai Tersimpan, Paket Belum Diterima Pemesan")

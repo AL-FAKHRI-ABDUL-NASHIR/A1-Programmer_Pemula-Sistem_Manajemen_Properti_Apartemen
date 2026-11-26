@@ -6,14 +6,18 @@ import Fitur_Penitipan_Paket
 import Fitur_Pembayaran_Sewa
 import Fitur_Kelola_Akun
 
-def Menu_Utama_Penyewa(Username_Log_In, Kontak_User):
-    Go_Back_Menu_Utama_Penyewa = False
-    while not Go_Back_Menu_Utama_Penyewa:
+def Menu_Utama_Penyewa(Username_Log_In):
+    while True:
         os.system("cls")
+        print("=" * 110)
+        print("MENU UTAMA PENYEWA".center(110))
+        print("=" * 110)
         opsi = [
             inquirer.List("Opsi Pilih Menu Utama Penyewa", message="Pilih Opsi", choices=["Daftar Unit", "Penitipan Paket", "Pembayaran Sewa", "Kelola Akun", "Log Out"])
         ]
         jawaban = inquirer.prompt(opsi)
+        if jawaban is None:
+            return
         Hasil_Opsi = jawaban["Opsi Pilih Menu Utama Penyewa"]
         if Hasil_Opsi == "Daftar Unit":
             Fitur_Unit.Fitur_Unit(Username_Log_In, Kontak_User)
@@ -24,4 +28,4 @@ def Menu_Utama_Penyewa(Username_Log_In, Kontak_User):
         elif Hasil_Opsi == "Kelola Akun":
             Fitur_Kelola_Akun.Fitur_Kelola_Akun(Username_Log_In)
         elif Hasil_Opsi == "Log Out":
-            Go_Back_Menu_Utama_Penyewa = True
+            break

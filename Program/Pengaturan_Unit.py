@@ -21,6 +21,8 @@ def Pengaturan_Unit():
             inquirer.List("Opsi Pilih Pengaturan Unit", message="Pilih Opsi", choices=["Daftar Unit", "Tambah Unit", "Ubah Unit", "Hapus Unit", "Kembali"])
         ]
         jawaban = inquirer.prompt(opsi)
+        if jawaban is None:
+            return
         Pilihan_Menu = jawaban["Opsi Pilih Pengaturan Unit"]
         if Pilihan_Menu == "Daftar Unit":
             Lihat_Unit()
@@ -124,6 +126,8 @@ def Tambah_Unit():
                     inquirer.List("Opsi Pilih Tipe Unit", message="Silahkan Pilih Tipe Unit Yang Ingin Ditambahkan", choices=["Studio", "1BR", "2BR"])
                 ]
                 jawaban = inquirer.prompt(opsi)
+                if jawaban is None:
+                    return
                 Hasil_Opsi = jawaban["Opsi Pilih Tipe Unit"]
                 if Hasil_Opsi == "Studio":
                     Tipe_Unit = "Studio"
@@ -145,6 +149,8 @@ def Tambah_Unit():
                     inquirer.List("Opsi Pilih Konfirmasi", message="Apakah Anda ingin menambahkan unit ini?", choices=["Ya", "Tidak"])
                 ]
                 jawaban = inquirer.prompt(opsi)
+                if jawaban is None:
+                    return
                 Hasil_Opsi = jawaban["Opsi Pilih Konfirmasi"]
                 if Hasil_Opsi == "Ya":
                     os.system("cls")
@@ -228,6 +234,8 @@ def Ubah_Unit():
                         inquirer.List("Opsi Pilih Tipe Unit", message="Silahkan Pilih Tipe Unit Yang Baru", choices=["Studio", "1BR", "2BR"])
                     ]
                     jawaban = inquirer.prompt(opsi)
+                    if jawaban is None:
+                        return
                     Hasil_Opsi = jawaban["Opsi Pilih Tipe Unit"]
                     if Hasil_Opsi == Unit['Tipe Unit']:
                         print("=====Pilihan Tipe Harus Berbeda!=====")
@@ -253,6 +261,8 @@ def Ubah_Unit():
                         inquirer.List("Opsi Pilih Konfirmasi", message="Apakah Anda Ingin Mengubah Tipe Unit Ini?", choices=["Ya", "Tidak"])
                     ]
                     jawaban = inquirer.prompt(opsi)
+                    if jawaban is None:
+                        return
                     Hasil_Opsi = jawaban["Opsi Pilih Konfirmasi"]
                     if Hasil_Opsi == "Ya":
                         os.system("cls")
@@ -331,7 +341,10 @@ def Hapus_Unit():
                 inquirer.List("Pilihan1", message="Apakah Anda Ingin Menghapus Unit Ini?", choices=["Ya", "Tidak"])
             ]
             jawaban = inquirer.prompt(opsi)
-            if jawaban["Pilihan1"] == "Ya":
+            if jawaban is None:
+                return
+            Hasil_Opsi = jawaban["Pilihan1"]
+            if Hasil_Opsi == "Ya":
                 os.system("cls")
                 del Data["Daftar Unit"][str(Nomor_Hapus)]
                 Simpan_Data()

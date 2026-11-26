@@ -40,13 +40,23 @@ def Menu_Autentikasi():
     while True:
         Kesempatan = 3
         os.system("cls")
-        print("=" * 110)
-        print("MENU AUTENTIKASI".center(110))
-        print("=" * 110)
+        print("=" * 120)
+        print("     ▄▄                                                        ▄▄▄     ▄▄▄                                   \n"\
+              "   ▄█▀▀█▄                     █▄                                ███▄ ▄███         █▄                               \n"\
+              "   ██  ██               ▄    ▄██▄      ▄              ▄         ██ ▀█▀ ██         ██          ▄▄           ▄       \n"\
+              "   ██▀▀██   ████▄ ▄▀▀█▄ ████▄ ██ ▄█▀█▄ ███▄███▄ ▄█▀█▄ ████▄     ██     ██   ▄▀▀█▄ ████▄ ▄▀▀█▄ ██ ▄█▀ ▄▀▀█▄ ███▄███▄\n"\
+              " ▄ ██  ██   ██ ██ ▄█▀██ ██    ██ ██▄█▀ ██ ██ ██ ██▄█▀ ██ ██     ██     ██   ▄█▀██ ██ ██ ▄█▀██ ████   ▄█▀██ ██ ██ ██\n"\
+              " ▀██▀  ▀█▄█▄████▀▄▀█▄██▄█▀   ▄██▄▀█▄▄▄▄██ ██ ▀█▄▀█▄▄▄▄██ ▀█   ▀██▀     ▀██▄▄▀█▄██▄██ ██▄▀█▄██▄██ ▀█▄▄▀█▄██▄██ ██ ▀█\n"\
+              "            ██                                                                                                     \n"\
+              "            ▀".center(120))
+        print ("<||||[Selamat Datang di Apartemen Mahakam]||||>".center(120))
+        print("=" * 120)
         opsi = [
-            inquirer.List("Opsi Pilih Menu Autentikasi", message="Pilih Opsi", choices=["Log In", "Sign In", "Keluar"])
+            inquirer.List("Opsi Pilih Menu Autentikasi", message="Silakan melakukan autentikasi terlebih dahulu", choices=["Log In", "Sign In", "Keluar"])
         ]
         jawaban = inquirer.prompt(opsi)
+        if jawaban is None:
+            return
         Hasil_Opsi = jawaban["Opsi Pilih Menu Autentikasi"]
         if Hasil_Opsi == "Log In":
             Menu_Log_In(Kesempatan)
@@ -74,6 +84,8 @@ def Menu_Log_In(Kesempatan):
             inquirer.List("Opsi Pilih Menu Log In", message="Apakah Anda ingin masuk?", choices=["Ya", "Tidak"])
         ]
         jawaban = inquirer.prompt(opsi)
+        if jawaban is None:
+            return
         Hasil_Opsi = jawaban["Opsi Pilih Menu Log In"]
         if Hasil_Opsi == "Ya":
             if Setup_Log_In_Admin():
@@ -111,6 +123,8 @@ def Menu_Sign_In():
         inquirer.List("Opsi Pilih Menu Sign In", message="Simpan Akun?", choices=["Ya", "Tidak"])
     ]
     jawaban = inquirer.prompt(opsi)
+    if jawaban is None:
+        return
     Hasil_Opsi = jawaban["Opsi Pilih Menu Sign In"]
     if Hasil_Opsi == "Ya":
         for i in Data["Data Akun"]:
