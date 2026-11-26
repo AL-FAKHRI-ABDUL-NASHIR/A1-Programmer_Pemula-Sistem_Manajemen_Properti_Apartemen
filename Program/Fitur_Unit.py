@@ -5,7 +5,7 @@ import Data
 import time
 from prettytable import PrettyTable
 
-def Fitur_Unit():
+def Fitur_Unit(Nama_Penghuni, Kontak_Penghuni = "-"):
     os.system("cls")
     try:
         while True:
@@ -18,9 +18,9 @@ def Fitur_Unit():
                 break
             Hasil_Opsi = jawaban["Opsi Pilih Fitur Unit"]
             if Hasil_Opsi == "Tampilkan Daftar Unit":
-                Daftar_Unit()
+                Daftar_Unit(Nama_Penghuni, Kontak_Penghuni)
             elif Hasil_Opsi == "Unit Sewa Anda":
-                Unit_Sewa()
+                Unit_Sewa(Nama_Penghuni)
             elif Hasil_Opsi == "Kembali":
                 return
     except KeyboardInterrupt:
@@ -37,15 +37,24 @@ def cek_ketersediaan_unit():
     else:
         return list_kunci
 
-def Lihat_Unit():
+def cek_unit_penyewa(Nama_Penghuni):
+    list_kunci = []
+    for keys, values in sorted(Data.Daftar_Unit.items()):
+        if values["Nama Penghuni"] == Nama_Penghuni:
+            list_kunci.append(keys)
+    if list_kunci is None:
+        return None
+    else:
+        return list_kunci
+
+def Lihat_Unit(kunci):
     try:
         os.system("cls")
         print("=========================================================================================")
         print("                       DAFTAR SELURUH UNIT YANG TERSEDIA                                 ")
         print("=========================================================================================")
-        kunci = cek_ketersediaan_unit()
-        if len(Data.Daftar_Unit) == 0 or kunci is None:
-            print("Belum Ada Data Unit Di Dalam Daftar")
+        if len(Data.Daftar_Unit) == 0 or kunci is None or len(kunci) <= 0:
+            print("Tidak Ada Data Unit Di Dalam Daftar")
             input("Tekan 'Enter' untuk kembali")
             os.system("cls")
             return False
@@ -71,7 +80,7 @@ def Lihat_Unit():
         os.system("cls")
         return False
 
-def Daftar_Unit():
+def Daftar_Unit(Nama_Penghuni, Kontak_Penghuni):
     try:
         os.system("cls")
         # di sini tampilkan daftar unit
@@ -89,11 +98,22 @@ def Daftar_Unit():
             return
         os.system("cls")
         while True:
-            if Lihat_Unit() == False:
+            if Lihat_Unit(cek_ketersediaan_unit()) == False:
                 return
             try:
+                print("Masukkan 0 Jika Ingin Kembali")
                 Nomor_Unit = input("Masukkan Nomor Unit: ")
                 Nomor_Unit = int(Nomor_Unit)
+                if Nomor_Unit == 0:
+                    break
+                elif not Nomor_Unit in Data.Daftar_Unit:
+                    os.system("cls")
+                    print("Nomor Unit tersebut tidak tersedia!")
+                    time.sleep(1.0)
+                elif Nomor_Unit in Data.Daftar_Unit and Data.Daftar_Unit[Nomor_Unit]["Status Unit"] != "Kosong":
+                    os.system("cls")
+                    print("Unit tersebut sudah disewa!")
+                    time.sleep(1.0)
             except ValueError:
                 os.system("cls")
                 print("Harap masukkan nomor yang benar!")
@@ -101,13 +121,13 @@ def Daftar_Unit():
             except KeyboardInterrupt:
                 os.system("cls")
                 return
-            if not Nomor_Unit in Data.Daftar_Unit:
-                os.system("cls")
-                print("Nomor Unit tersebut tidak tersedia!")
-                time.sleep(1.0)
-            elif Nomor_Unit in Data.Daftar_Unit:
+            if Nomor_Unit in Data.Daftar_Unit:
                 os.system("cls")
                 break
+        if Nomor_Unit == 0 or Nomor_Unit in Data.Daftar_Unit and Data.Daftar_Unit[Nomor_Unit]["Status Unit"] != "Kosong":
+            os.system("cls")
+            return
+                
         os.system("cls")
         opsi = [
             inquirer.List("Opsi Pilih Konfirmasi", message="Apakah Anda ingin menyewa unit ini?", choices=["Ya", "Tidak"])
@@ -125,9 +145,10 @@ def Daftar_Unit():
             return
         os.system("cls")
         for nomorUnit, isi in sorted(Data.Daftar_Unit.items()):
-            isi["Nama Penghuni"] 
-            isi["Status Bayar Sewa"]
-            isi["Nomor Kontak"]
+            if nomorUnit == Nomor_Unit:
+                isi["Nama Penghuni"] = Nama_Penghuni
+                isi["Status Unit"] = "Terisi"
+                isi["Nomor Kontak"] = Kontak_Penghuni
 
         # di sini program bayar sewa awal bagi penyewa
         print("Unit berhasil disewa")
@@ -139,7 +160,7 @@ def Daftar_Unit():
         return
 
 
-def Unit_Sewa():
+def Unit_Sewa(Nama_Penghuni):
     os.system("cls")
     # di sini tampilkan daftar unit yang telah disewa
     # di sini penyewa memilih unit
@@ -147,7 +168,11 @@ def Unit_Sewa():
     opsi = [
         inquirer.List("Opsi Pilih Unit Sewa", message="Pilih Opsi", choices=["Batalkan Sewa", "Kembali"])
     ]
+    Lihat_Unit(cek_unit_penyewa(Nama_Penghuni))
     jawaban = inquirer.prompt(opsi)
+    if jawaban is None:
+        os.system("cls")
+        return
     Hasil_Opsi = jawaban["Opsi Pilih Unit Sewa"]
     if Hasil_Opsi == "Kembali":
         os.system("cls")
@@ -157,7 +182,11 @@ def Unit_Sewa():
         opsi = [
             inquirer.List("Opsi Pilih Batalkan Sewa", message="Apakah Anda ingin membatalkan sewa unit ini?", choices=["Ya", "Tidak"])
         ]
+        Nomor_Unit = input("Masukkan Nomor Unit: ")
         jawaban = inquirer.prompt(opsi)
+        if jawaban is None:
+            os.system("cls")
+            return
         Hasil_Opsi = jawaban["Opsi Pilih Batalkan Sewa"]
     if Hasil_Opsi == "Ya":
         # di sini program membatalkan sewa (menghapus unit dari daftar unit sewa anda, mengubah informasi unit pada Data_Unit dari statusnya penuh menjadi tersedia)
@@ -170,4 +199,4 @@ def Unit_Sewa():
         input("Tekan 'Enter' Untuk Kembali! ")
         os.system("cls")
 
-Fitur_Unit()
+Fitur_Unit("RafaxCode")
