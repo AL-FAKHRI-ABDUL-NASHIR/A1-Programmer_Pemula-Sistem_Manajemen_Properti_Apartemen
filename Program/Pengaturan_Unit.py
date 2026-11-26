@@ -356,4 +356,3 @@ def Hapus_Unit():
         except KeyboardInterrupt:
             break
 
-Pengaturan_Unit()
