@@ -116,7 +116,7 @@ def Hapus_Form(Nama_User):
                 count += 1
                 list_paket_user.append(f"Paket # {count}")
         list_paket_user.append("Batal")
-        count = 0
+        count = 0   
                 
         opsi = [
             inquirer.List("Opsi Paket Yang Ingin Dihapus", message="Pilih Form Paket Yang Ingin Dihapus", choices=list_paket_user)

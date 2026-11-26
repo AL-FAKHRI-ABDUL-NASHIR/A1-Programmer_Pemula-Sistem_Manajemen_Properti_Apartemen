@@ -5,15 +5,15 @@
             "Harga Unit": 2500000,
             "Status Unit": "Terisi",
             "Nama Penghuni": "RafaxCode",
-            "Status Bayar Sewa": "Belum",
-            "Nomor Kontak": "081234567890"
+            "Status Bayar Sewa": "Sudah Bayar",
+            "Nomor Kontak": "-"
         },
         "206": {
             "Tipe Unit": "Studio",
             "Harga Unit": 2000000,
             "Status Unit": "Kosong",
             "Nama Penghuni": "-",
-            "Status Bayar Sewa": "-",
+            "Status Bayar Sewa": "Sudah Bayar",
             "Nomor Kontak": "-"
         }
     },
@@ -38,7 +38,7 @@
             "Username": "2",
             "Password": "2",
             "Nama Lengkap": "2",
-            "No. Hp": "000000000000",
+            "No. Hp": "086712344334",
             "Unit Sewa": "-",
             "Status Bayar Sewa": "-"
         }
