@@ -2,22 +2,25 @@ Daftar_Unit = {
     205 : {
         "Nama Penghuni"     : "RafaxCode",
         "Tipe Unit"         : "Studio",
-        "Ukuran Unit"       : "~30m²",
         "Harga Unit"        : 2500000,
-        "Detail"            : "test",
         "Status Unit"       : "Terisi",
         "Status Bayar Sewa" : "Belum",
         "Nomor Kontak"      : "081234567890"
-
+    },
+    206: {
+       "Nama Penghuni"     : "-",
+        "Tipe Unit"         : "Studio",
+        "Harga Unit"        : 2500000,
+        "Status Unit"       : "Kosong",
+        "Status Bayar Sewa" : "-",
+        "Nomor Kontak"      : "-"
     }
 }
-
-Daftar_Pembayaran = {}
 
 Data_Akun = {
     260001 : {
         "Username" : "RafaxCode",
-        "Password" : "",
+        "Password" : "rafa",
         "Nama Lengkap" : "rafa tarakan",
         "No. Hp" : "081234567890",
         "Unit Sewa" : "101",

@@ -254,3 +254,5 @@ def Unit_Sewa(Nama_Penghuni):
         print("Aksi Dibatalkan")
         input("Tekan 'Enter' Untuk Kembali! ")
         os.system("cls")
+
+Fitur_Unit("RafaxCode")
