@@ -16,6 +16,8 @@ def Menu_Utama_Admin():
             inquirer.List("Opsi Pilih Menu Utama Admin", message="Pilih Opsi", choices=["Pengaturan Unit", "Penitipan Paket", "Pembayaran Sewa", "Kelola Akun", "Log Out"])
         ]
         jawaban = inquirer.prompt(opsi)
+        if jawaban is None:
+            return
         Hasil_Opsi = jawaban["Opsi Pilih Menu Utama Admin"]
         if Hasil_Opsi == "Pengaturan Unit":
             Pengaturan_Unit.Pengaturan_Unit()
