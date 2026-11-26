@@ -89,7 +89,7 @@ def Buat_Form(Nama_User):
     Hasil_Opsi = jawaban["Opsi Pilih Konfirmasi"]
     if Hasil_Opsi == "Ya":
         os.system("cls")
-        Data["Data Paket"][len(Data["Data Paket"]) + 1] = temporary_paket
+        Data["Data Paket"][f"{len(Data["Data Paket"]) + 1}"] = temporary_paket
         print("Form telah dibuat")
         print('-------------------------')
         input('Tekan Enter Untuk Kembali') 
@@ -116,12 +116,14 @@ def Hapus_Form(Nama_User):
                 count += 1
                 list_paket_user.append(f"Paket # {count}")
         list_paket_user.append("Batal")
-        count = 0   
+        count = 0
                 
         opsi = [
             inquirer.List("Opsi Paket Yang Ingin Dihapus", message="Pilih Form Paket Yang Ingin Dihapus", choices=list_paket_user)
         ]
         jawaban = inquirer.prompt(opsi)
+        if jawaban is None:
+            return
         jawaban = jawaban["Opsi Paket Yang Ingin Dihapus"]
         kunci_data_paket = int(jawaban[7:])
         if jawaban == "Batal":
@@ -133,17 +135,21 @@ def Hapus_Form(Nama_User):
                 inquirer.List("Konfirmasi Penghapusan", message="Apakah Anda Yakin Ingin Menghapus Form Ini?", choices=["Iya", "Tidak"])
             ]
             jawaban = inquirer.prompt(opsi)
+            if jawaban is None:
+                return
             Hasil_Opsi = jawaban["Konfirmasi Penghapusan"]
-            if Hasil_Opsi == "Ya":
+            if Hasil_Opsi == "Iya":
                 os.system("cls")
                 print("Menghapus Form...")
-                del Data["Data Paket"][kunci_data_paket]
+                del Data["Data Paket"][str(kunci_data_paket)]
                 susun_ulang_data_paket()
+                Simpan_Data()
                 time.sleep(1.5)
                 os.system("cls")
                 print("Form Telah Dihapus")
                 print("-------------------------")
                 input('Tekan Enter Untuk Kembali')
+                Simpan_Data()
                 return True
             elif Hasil_Opsi == "Tidak":
                 return False

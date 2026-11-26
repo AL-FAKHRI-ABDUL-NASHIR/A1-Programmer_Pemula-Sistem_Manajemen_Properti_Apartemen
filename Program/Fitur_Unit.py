@@ -5,14 +5,17 @@ import time
 from prettytable import PrettyTable
 import json
 
-with open("Program/Data.json", "r") as file:
-    Data = json.load(file)
+def Baca_Data():
+    global Data
+    with open("Program/Data.json", "r") as file:
+        Data = json.load(file)
 
 def Simpan_Data():
     with open("Program/Data.json", "w") as file:
         json.dump(Data, file, indent=4)
 
 def Fitur_Unit(Nama_Penghuni, Kontak_Penghuni = "-"):
+    Baca_Data()
     os.system("cls")
     try:
         while True:
@@ -36,6 +39,7 @@ def Fitur_Unit(Nama_Penghuni, Kontak_Penghuni = "-"):
         return
 
 def cek_ketersediaan_unit():
+    Baca_Data()
     list_kunci = []
     for keys, values in sorted(Data["Daftar Unit"].items()):
         if values["Status Unit"] != "Terisi":
@@ -43,6 +47,7 @@ def cek_ketersediaan_unit():
     return list_kunci
 
 def cek_unit_penyewa(Nama_Penghuni):
+    Baca_Data()
     list_kunci = []
     for keys, values in sorted(Data["Daftar Unit"].items()):
         if values["Nama Penghuni"] == Nama_Penghuni:
@@ -53,6 +58,7 @@ def cek_unit_penyewa(Nama_Penghuni):
         return list_kunci
 
 def Lihat_Unit(kunci):
+    Baca_Data()
     try:
         os.system("cls")
         print("=========================================================================================")
@@ -86,6 +92,7 @@ def Lihat_Unit(kunci):
         return False
 
 def Daftar_Unit(Nama_Penghuni, Kontak_Penghuni):
+    Baca_Data()
     try:
         os.system("cls")
         # di sini tampilkan daftar unit
@@ -170,12 +177,10 @@ def Daftar_Unit(Nama_Penghuni, Kontak_Penghuni):
 
 
 def Unit_Sewa(Nama_Penghuni):
+    Baca_Data()
     while True:
         try:
             os.system("cls")
-            # di sini tampilkan daftar unit yang telah disewa
-            # di sini penyewa memilih unit
-            # di sini program menampilkan informasi dari Data_Unit berdasarkan unit yang telah dipilih
             opsi = [
                 inquirer.List("Opsi Pilih Unit Sewa", message="Pilih Opsi", choices=["Batalkan Sewa", "Kembali"])
             ]

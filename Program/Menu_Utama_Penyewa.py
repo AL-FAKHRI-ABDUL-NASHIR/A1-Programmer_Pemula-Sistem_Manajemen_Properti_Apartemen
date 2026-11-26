@@ -6,7 +6,7 @@ import Fitur_Penitipan_Paket
 import Fitur_Pembayaran_Sewa
 import Fitur_Kelola_Akun
 
-def Menu_Utama_Penyewa(Username_Log_In):
+def Menu_Utama_Penyewa(Username_Log_In, Kontak_User):
     while True:
         os.system("cls")
         print("=" * 110)

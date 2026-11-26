@@ -2,16 +2,30 @@ import os
 import inquirer
 
 import Data
+import json
+
+with open("Program/Data.json", "r") as file:
+    Data = json.load(file)
+
+def Baca_Data():
+    with open("Program/Data.json", "r") as file:
+        Data = json.load(file)
+
+
+def Simpan_Data():
+    with open("Program/Data.json", "w") as file:
+        json.dump(Data, file, indent=4)
 
 def cari_id_user(Nama_Lengkap):
-    for keys, value in Data.Data_Akun.items():
+    Baca_Data()
+    for keys, value in Data["Data Akun"].items():
         if value['Username'] == Nama_Lengkap:
             return keys
 
 def Fitur_Pembayaran_Sewa(Nama_Lengkap):
     Unit = None
     Unit_Keys = 0
-    for i, Data_Kamar in Data.Daftar_Unit.items():
+    for i, Data_Kamar in Data["Daftar Unit"].items():
         if Data_Kamar['Nama Penghuni'] == Nama_Lengkap:
             Unit = Data_Kamar
             Unit_Keys = i
@@ -57,14 +71,15 @@ def Fitur_Pembayaran_Sewa(Nama_Lengkap):
 
             if Uang_Bayar >= Tagihan_Sewa:
                 kembalian = Uang_Bayar - Tagihan_Sewa
-                Data.Simpanan_Uang_Admin += Tagihan_Sewa
-                Data.Daftar_Unit[Unit_Keys]["Status Bayar Sewa"] = "Sudah Bayar"
+                Data["Simpanan Uang Admin"] += Tagihan_Sewa
+                Data["Daftar Unit"][Unit_Keys]["Status Bayar Sewa"] = "Sudah Bayar"
                 kunci = cari_id_user(Nama_Lengkap)
-                Data.Data_Akun[kunci]["Status Bayar Sewa"] = "Sudah Bayar"
+                Data["Data Akun"][kunci]["Status Bayar Sewa"] = "Sudah Bayar"
                 print("Pembayaran berhasil")
                 print(f"Kembalian anda ialah Rp.{kembalian}")
                 print('=' * 40)
                 input("Tekan Enter Untuk Kembali")
+                Simpan_Data()
             else:
                 print("Pembayaran gagal, Uang Anda Tidak Cukup!")
                 print('=' * 40)

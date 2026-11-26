@@ -11,10 +11,10 @@
         "206": {
             "Tipe Unit": "Studio",
             "Harga Unit": 2000000,
-            "Status Unit": "Kosong",
-            "Nama Penghuni": "-",
-            "Status Bayar Sewa": "Sudah Bayar",
-            "Nomor Kontak": "-"
+            "Status Unit": "Terisi",
+            "Nama Penghuni": "2",
+            "Status Bayar Sewa": "Belum",
+            "Nomor Kontak": "086712344334"
         }
     },
     "Data Akun": {
@@ -40,7 +40,7 @@
             "Nama Lengkap": "2",
             "No. Hp": "086712344334",
             "Unit Sewa": "-",
-            "Status Bayar Sewa": "-"
+            "Status Bayar Sewa": "Sudah Bayar"
         }
     },
     "Data Paket": {
@@ -58,5 +58,5 @@
     "Daftar Pembayaran": {},
     "Username Admin": "Admin123",
     "Password Admin": "Code123",
-    "Simpanan Uang Admin": 1000000.0
+    "Simpanan Uang Admin": 7000000.0
 }
